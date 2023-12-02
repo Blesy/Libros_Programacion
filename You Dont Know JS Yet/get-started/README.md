@@ -4,14 +4,14 @@
 
 -----
 
-**[Purchase ebook/PDF from Leanpub](https://leanpub.com/ydkjsy-get-started)**
+**[Compra el ebook/PDF en Leanpub](https://leanpub.com/ydkjsy-get-started)**
 
 -----
 
-[Table of Contents](toc.md)
+[Tabla de Contenidos](toc.md)
 
-* [Foreword](foreword.md) (by [Brian Holt](https://twitter.com/holtbt))
-* [Preface](../preface.md)
+* [Prólogo](foreword.md) (de [Brian Holt](https://twitter.com/holtbt))
+* [Prefacio](../preface.md)
 * [Chapter 1: What Is JavaScript?](ch1.md)
 * [Chapter 2: Surveying JS](ch2.md)
 * [Chapter 3: Digging to the Roots of JS](ch3.md)
