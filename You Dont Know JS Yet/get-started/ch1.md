@@ -1,156 +1,156 @@
-# Chapter 1: What *Is* JavaScript?
+# Capítulo 1: ¿Qué *Es* JavaScript?
 
-You don't know JS, yet. Neither do I, not fully anyway. None of us do. But we can all start getting to know JS better.
+No conoces JS, todavía. Yo tampoco, al menos no completamente. Ninguno de nosotros lo hace. Pero todos podemos empezar a conocer mejor a JS.
 
-In this first chapter of the first book of the *You Don't Know JS Yet* (YDKJSY) series, we will take some time to build a foundation to move forward on. We need to start by covering a variety of important background housekeeping details, clearing up some myths and misconceptions about what the language really is (and isn't!).
+En este primer capítulo del primer libro de la serie *You Don't Know JS Yet* (YDKJSY), dedicaremos tiempo a construir una base para avanzar. Necesitamos comenzar cubriendo una variedad de detalles importantes de mantenimiento, desmitificando algunos mitos y malentendidos sobre lo que realmente es el lenguaje (¡y lo que no es!).
 
-This is valuable insight into the identity and process of how JS is organized and maintained; all JS developers should understand it. If you want to get to know JS, this is how to *get started* taking the first steps in that journey.
+Esta es una perspicacia valiosa sobre la identidad y el proceso de cómo está organizado y mantenido JS; todos los desarrolladores de JS deberían entenderlo. Si quieres conocer a JS, así es como *comenzar* dando los primeros pasos en ese viaje.
 
-## About This Book
+## Sobre Este Libro
 
-I emphasize the word journey because *knowing JS* is not a destination, it's a direction. No matter how much time you spend with the language, you will always be able to find something else to learn and understand a little better. So don't look at this book as something to rush through for a quick achievement. Instead, patience and persistence are best as you take these first few steps.
+Enfatizo la palabra viaje porque *conocer JS* no es un destino, es una dirección. No importa cuánto tiempo pases con el lenguaje, siempre podrás encontrar algo más que aprender y entender un poco mejor. Así que no veas este libro como algo para apresurarte y lograr un logro rápido. En cambio, la paciencia y la persistencia son lo mejor mientras das estos primeros pasos.
 
-Following this background chapter, the rest of the book lays out a high-level map of what you will find as you dig into and study JS with the YDKJSY books.
+Después de este capítulo introductorio, el resto del libro presenta un mapa de alto nivel de lo que encontrarás mientras profundizas y estudias JS con los libros de YDKJSY.
 
-In particular, Chapter 4 identifies three main pillars around which the JS language is organized: scope/closures, prototypes/objects, and types/coercion. JS is a broad and sophisticated language, with many features and capabilities. But all of JS is founded on these three foundational pillars.
+En particular, el Capítulo 4 identifica tres pilares principales alrededor de los cuales está organizado el lenguaje JS: scope/closures (alcance/cierres), prototypes/objects (prototipos/objetos) y types/coercion (tipos/coerción). JS es un lenguaje amplio y sofisticado, con muchas características y capacidades. Pero todo JS se basa en estos tres pilares fundamentales.
 
-Keep in mind that even though this book is titled "Get Started," it's **not intended as a beginner/intro book**. This book's main job is to get you ready for studying JS deeply throughout the rest of the series; it's written assuming you already have familiarity with JS over at least several months experience before moving on in YDKJSY. So to get the most out of *Get Started*, make sure you spend plenty of time writing JS code to build up your experience.
+Ten en cuenta que, aunque este libro tiene el título "Get Started", **no está destinado como un libro para principiantes o una introducción**. El trabajo principal de este libro es prepararte para estudiar JS en profundidad a lo largo del resto de la serie; está escrito asumiendo que ya tienes familiaridad con JS y al menos varios meses de experiencia antes de avanzar en YDKJSY. Entonces, para aprovechar al máximo *Get Started*, asegúrate de pasar mucho tiempo escribiendo código JS para acumular experiencia.
 
-Even if you've already written a lot of JS before, this book should not be skimmed over or skipped; take your time to fully process the material here. **A good start always depends on a solid first step.**
+Incluso si ya has escrito mucho JS antes, este libro no debe pasarse por alto o saltarse; tómate tu tiempo para procesar completamente el material aquí. **Un buen comienzo siempre depende de un primer paso sólido.**
 
-## What's With That Name?
+## ¿Qué significa ese nombre?
 
-The name JavaScript is probably the most mistaken and misunderstood programming language name.
+El nombre JavaScript es probablemente el nombre de un lenguaje de programación más malinterpretado y comprendido.
 
-Is this language related to Java? Is it only the script form for Java? Is it only for writing scripts and not real programs?
+¿Está este lenguaje relacionado con Java? ¿Es solo la forma de script para Java? ¿Solo sirve para escribir scripts y no programas reales?
 
-The truth is, the name JavaScript is an artifact of marketing shenanigans. When Brendan Eich first conceived of the language, he code-named it Mocha. Internally at Netscape, the brand LiveScript was used. But when it came time to publicly name the language, "JavaScript" won the vote.
+La verdad es que el nombre JavaScript es un resultado de artimañas de marketing. Cuando Brendan Eich concibió por primera vez el lenguaje, lo denominó Mocha. Internamente en Netscape, se utilizaba la marca LiveScript. Pero cuando llegó el momento de nombrar públicamente el lenguaje, "JavaScript" ganó la votación.
 
-Why? Because this language was originally designed to appeal to an audience of mostly Java programmers, and because the word "script" was popular at the time to refer to lightweight programs. These lightweight "scripts" would be the first ones to embed inside of pages on this new thing called the web!
+¿Por qué? Porque este lenguaje fue diseñado originalmente para atraer a una audiencia compuesta en su mayoría por programadores de Java, y porque la palabra "script" estaba de moda en ese momento para referirse a programas livianos. Estos "scripts" livianos serían los primeros en incrustarse en páginas en esta nueva cosa llamada web!
 
-In other words, JavaScript was a marketing ploy to try to position this language as a palatable alternative to writing the heavier and more well-known Java of the day. It could just as easily have been called "WebJava," for that matter.
+En otras palabras, JavaScript fue un truco de marketing para tratar de posicionar este lenguaje como una alternativa aceptable para escribir el más pesado y más conocido Java de la época. Podría haberse llamado igualmente "WebJava", por así decirlo.
 
-There are some superficial resemblances between JavaScript's code and Java code. Those similarities don't particularly come from shared development, but from both languages targeting developers with assumed syntax expectations from C (and to an extent, C++).
+Existen algunas similitudes superficiales entre el código de JavaScript y el código de Java. Esas similitudes no provienen especialmente de un desarrollo compartido, sino porque ambos lenguajes apuntan a desarrolladores con expectativas de sintaxis asumidas de C (y en cierta medida, C++).
 
-For example, we use the `{` to begin a block of code and the `}` to end that block of code, just like C/C++ and Java. We also use the `;` to punctuate the end of a statement.
+Por ejemplo, usamos la `{` para comenzar un bloque de código y la `}` para finalizar ese bloque de código, al igual que en C/C++ y Java. También usamos el `;` para poner fin a una declaración.
 
-In some ways, legal relationships run even deeper than the syntax. Oracle (via Sun), the company that still owns and runs Java, also owns the official trademark for the name "JavaScript" (via Netscape). This trademark is almost never enforced, and likely couldn't be at this point.
+De alguna manera, las relaciones legales van aún más allá de la sintaxis. Oracle (a través de Sun), la empresa que aún posee y opera Java, también posee la marca registrada oficial para el nombre "JavaScript" (a través de Netscape). Esta marca registrada casi nunca se hace valer y probablemente no podría hacerse en este momento.
 
-For these reasons, some have suggested we use JS instead of JavaScript. That is a very common shorthand, if not a good candidate for an official language branding itself. Indeed, these books use JS almost exclusively to refer to the language.
+Por estas razones, algunos han sugerido que usemos JS en lugar de JavaScript. Esa es una abreviatura muy común, aunque no es un buen candidato para la marca oficial del lenguaje. De hecho, estos libros utilizan JS casi exclusivamente para referirse al lenguaje.
 
-Further distancing the language from the Oracle-owned trademark, the official name of the language specified by TC39 and formalized by the ECMA standards body is **ECMAScript**. And indeed, since 2016, the official language name has also been suffixed by the revision year; as of this writing, that's ECMAScript 2019, or otherwise abbreviated ES2019.
+Para distanciar aún más al lenguaje de la marca registrada propiedad de Oracle, el nombre oficial del lenguaje especificado por TC39 y formalizado por el organismo de normas ECMA es **ECMAScript**. Y de hecho, desde 2016, el nombre oficial del lenguaje también ha sido seguido por el año de revisión; al momento de escribir esto, eso es ECMAScript 2019, o de lo contrario abreviado como ES2019.
 
-In other words, the JavaScript/JS that runs in your browser or in Node.js, is *an* implementation of the ES2019 standard.
+En otras palabras, el JavaScript/JS que se ejecuta en tu navegador o en Node.js, es *una* implementación del estándar ES2019.
 
-| NOTE: |
+| NOTA: |
 | :--- |
-| Don't use terms like "JS6" or "ES8" to refer to the language. Some do, but those terms only serve to perpetuate confusion. "ES20xx" or just "JS" are what you should stick to. |
+| No uses términos como "JS6" o "ES8" para referirte al lenguaje. Algunos lo hacen, pero esos términos solo sirven para perpetuar la confusión. "ES20xx" o simplemente "JS" son los términos a los que debes ceñirte. |
 
-Whether you call it JavaScript, JS, ECMAScript, or ES2019, it's most definitely not a variant of the Java language!
+Ya sea que lo llames JavaScript, JS, ECMAScript o ES2019, ¡definitivamente no es una variante del lenguaje Java!
 
-> "Java is to JavaScript as ham is to hamster." --Jeremy Keith, 2009
+> "Java es a JavaScript como jamón es a hámster." --Jeremy Keith, 2009
 
-## Language Specification
+## Especificación del Lenguaje.
 
-I mentioned TC39, the technical steering committee that manages JS. Their primary task is managing the official specification for the language. They meet regularly to vote on any agreed changes, which they then submit to ECMA, the standards organization.
+Mencioné TC39, el comité de dirección técnica que gestiona JS. Su tarea principal es gestionar la especificación oficial del lenguaje. Se reúnen regularmente para votar sobre cualquier cambio acordado, que luego envían a ECMA, la organización de estándares.
 
-JS's syntax and behavior are defined in the ES specification.
+La sintaxis y el comportamiento de JS están definidos en la especificación ES.
 
-ES2019 happens to be the 10th major numbered specification/revision since JS's inception in 1995, so in the specification's official URL as hosted by ECMA, you'll find "10.0":
+ES2019 resulta ser la décima especificación/revisión numerada principal desde el inicio de JS en 1995, así que en la URL oficial de la especificación alojada por ECMA, encontrarás "10.0":
 
 https://www.ecma-international.org/ecma-262/10.0/
 
-The TC39 committee is comprised of between 50 and about 100 different people from a broad section of web-invested companies, such as browser makers (Mozilla, Google, Apple) and device makers (Samsung, etc). All members of the committee are volunteers, though many of them are employees of these companies and so may receive compensation in part for their duties on the committee.
+El comité TC39 está compuesto por entre 50 y aproximadamente 100 personas de una amplia variedad de empresas relacionadas con la web, como fabricantes de navegadores (Mozilla, Google, Apple) y fabricantes de dispositivos (Samsung, etc). Todos los miembros del comité son voluntarios, aunque muchos de ellos son empleados de estas empresas y pueden recibir compensación en parte por sus funciones en el comité.
 
-TC39 meets generally about every other month, usually for about three days, to review work done by members since the last meeting, discuss issues, and vote on proposals. Meeting locations rotate among member companies willing to host.
+TC39 se reúne generalmente aproximadamente cada dos meses, por lo general durante unos tres días, para revisar el trabajo realizado por los miembros desde la última reunión, discutir problemas y votar sobre propuestas. Las ubicaciones de las reuniones rotan entre las empresas miembros dispuestas a ser anfitrionas.
 
-All TC39 proposals progress through a five-stage process—of course, since we're programmers, it's 0-based!—Stage 0 through Stage 4. You can read more about the Stage process here: https://tc39.es/process-document/
+Todas las propuestas de TC39 avanzan a través de un proceso de cinco etapas, por supuesto, ya que somos programadores, ¡comienza en 0! Desde la Etapa 0 hasta la Etapa 4. Puedes obtener más información sobre el proceso de etapas aquí: https://tc39.es/process-document/
 
-Stage 0 means roughly, someone on TC39 thinks it's a worthy idea and plans to champion and work on it. That means lots of ideas that non-TC39 members "propose," through informal means such as social media or blog posts, are really "pre-stage 0." You have to get a TC39 member to champion a proposal for it to be considered "Stage 0" officially.
+La Etapa 0 significa aproximadamente que alguien en TC39 piensa que es una idea valiosa y planea respaldarla y trabajar en ella. Eso significa que muchas ideas que los no miembros de TC39 "proponen", a través de medios informales como las redes sociales o publicaciones en blogs, son realmente "pre-etapa 0". Debes conseguir que un miembro de TC39 respalde una propuesta para que sea considerada oficialmente "Etapa 0".
 
-Once a proposal reaches "Stage 4" status, it is eligible to be included in the next yearly revision of the language. It can take anywhere from several months to a few years for a proposal to work its way through these stages.
+Una vez que una propuesta alcanza el estado de "Etapa 4", es elegible para ser incluida en la próxima revisión anual del lenguaje. Puede tomar desde varios meses hasta unos pocos años para que una propuesta avance a través de estas etapas.
 
-All proposals are managed in the open, on TC39's Github repository: https://github.com/tc39/proposals
+Todas las propuestas se gestionan de manera abierta, en el repositorio de Github de TC39: https://github.com/tc39/proposals
 
-Anyone, whether on TC39 or not, is welcome to participate in these public discussions and the processes for working on the proposals. However, only TC39 members can attend meetings and vote on the proposals and changes. So in effect, the voice of a TC39 member carries a lot of weight in where JS will go.
+Cualquier persona, ya sea miembro de TC39 o no, puede participar en estas discusiones públicas y en los procesos para trabajar en las propuestas. Sin embargo, solo los miembros de TC39 pueden asistir a las reuniones y votar sobre las propuestas y los cambios. Por lo tanto, en efecto, la voz de un miembro de TC39 tiene mucho peso en la dirección que tomará JS.
 
-Contrary to some established and frustratingly perpetuated myth, there are *not* multiple versions of JavaScript in the wild. There's just **one JS**, the official standard as maintained by TC39 and ECMA.
+Contrariamente a algún mito establecido y frustrantemente perpetuado, *no* hay múltiples versiones de JavaScript en circulación. Solo existe **un JS**, el estándar oficial mantenido por TC39 y ECMA.
 
-Back in the early 2000s, when Microsoft maintained a forked and reverse-engineered (and not entirely compatible) version of JS called "JScript," there were legitimately "multiple versions" of JS. But those days are long gone. It's outdated and inaccurate to make such claims about JS today.
+En la década de los 2000s, cuando Microsoft mantenía una versión bifurcada e ingenierizada en reversa (y no del todo compatible) de JS llamada "JScript", realmente existían "versiones múltiples" de JS. Pero esos días han quedado atrás. Es obsoleto y inexacto hacer tales afirmaciones sobre JS hoy en día.
 
-All major browsers and device makers have committed to keeping their JS implementations compliant with this one central specification. Of course, engines implement features at different times. But it should never be the case that the v8 engine (Chrome's JS engine) implements a specified feature differently or incompatibly as compared to the SpiderMonkey engine (Mozilla's JS engine).
+Todos los principales navegadores y fabricantes de dispositivos se han comprometido a mantener sus implementaciones de JS compatibles con esta única especificación central. Por supuesto, los motores implementan características en diferentes momentos. Pero nunca debería ser el caso de que el motor V8 (el motor JS de Chrome) implemente una característica especificada de manera diferente o incompatible en comparación con el motor SpiderMonkey (el motor JS de Mozilla).
 
-That means you can learn **one JS**, and rely on that same JS everywhere.
+Esto significa que puedes aprender un **solo JS** y confiar en ese mismo JS en todas partes.
 
-### The Web Rules Everything About (JS)
+### La Web Lo Gobierna Todo (JS)
 
-While the array of environments that run JS is constantly expanding (from browsers, to servers (Node.js), to robots, to lightbulbs, to...), the one environment that rules JS is the web. In other words, how JS is implemented for web browsers is, in all practicality, the only reality that matters.
+Mientras que la variedad de entornos que ejecutan JS está en constante expansión (desde navegadores, hasta servidores (Node.js), pasando por robots, bombillas, hasta...), el único entorno que domina JS es la web. En otras palabras, cómo se implementa JS para los navegadores web es, en la práctica, la única realidad que importa.
 
-For the most part, the JS defined in the specification and the JS that runs in browser-based JS engines is the same. But there are some differences that must be considered.
+En su mayor parte, el JS definido en la especificación y el JS que se ejecuta en los motores de JS basados en el navegador es el mismo. Pero hay algunas diferencias que deben tenerse en cuenta.
 
-Sometimes the JS specification will dictate some new or refined behavior, and yet that won't exactly match with how it works in browser-based JS engines. Such a mismatch is historical: JS engines have had 20+ years of observable behaviors around corner cases of features that have come to be relied on by web content. As such, sometimes the JS engines will refuse to conform to a specification-dictated change because it would break that web content.
+A veces, la especificación de JS dictará algún comportamiento nuevo o refinado, y aún así, eso no coincidirá exactamente con cómo funciona en los motores de JS basados en el navegador. Tal desajuste es histórico: los motores de JS han tenido más de 20 años de comportamientos observables en casos particulares de características en las que el contenido web ha llegado a depender. Como tal, a veces los motores de JS se negarán a conformarse a un cambio dictado por la especificación porque rompería ese contenido web.
 
-In these cases, often TC39 will backtrack and simply choose to conform the specification to the reality of the web. For example, TC39 planned to add a `contains(..)` method for Arrays, but it was found that this name conflicted with old JS frameworks still in use on some sites, so they changed the name to a non-conflicting `includes(..)`. The same happened with a comedic/tragic JS *community crisis* dubbed "smooshgate," where the planned `flatten(..)` method was eventually renamed `flat(..)`.
+En estos casos, a menudo TC39 retrocederá y simplemente elegirá ajustar la especificación a la realidad de la web. Por ejemplo, TC39 planeaba agregar un método `contains(..)` para Arrays, pero se descubrió que este nombre entraba en conflicto con antiguos frameworks de JS que aún se utilizan en algunos sitios, así que cambiaron el nombre a un `includes(..)` que no tenía conflictos. Lo mismo ocurrió con una cómica/trágica *crisis comunitaria* de JS llamada "smooshgate", donde el método planeado `flatten(..)` fue finalmente renombrado a `flat(..)`.
 
-But occasionally, TC39 will decide the specification should stick firm on some point even though it is unlikely that browser-based JS engines will ever conform.
+Pero ocasionalmente, TC39 decidirá que la especificación debe mantenerse firme en algún punto, aunque es poco probable que los motores de JS basados en el navegador se conformen.
 
-The solution? Appendix B, "Additional ECMAScript Features for Web Browsers".[^specApB] The JS specification includes this appendix to detail out any known mismatches between the official JS specification and the reality of JS on the web. In other words, these are exceptions that are allowed *only* for web JS; other JS environments must stick to the letter of the law.
+¿La solución? Apéndice B, "Características Adicionales de ECMAScript para Navegadores Web".[^specApB] La especificación de JS incluye este apéndice para detallar cualquier desajuste conocido entre la especificación oficial de JS y la realidad de JS en la web. En otras palabras, estas son excepciones permitidas *solo* para JS web; otros entornos de JS deben ceñirse al pie de la letra de la ley.
 
-Section B.1 and B.2 cover *additions* to JS (syntax and APIs) that web JS includes, again for historical reasons, but which TC39 does not plan to formally specify in the core of JS. Examples include `0`-prefixed octal literals, the global `escape(..)` / `unescape(..)` utilities, String "helpers" like `anchor(..)` and `blink()`, and the RegExp `compile(..)` method.
+La Sección B.1 y B.2 cubren *adiciones* a JS (sintaxis y APIs) que JS web incluye, nuevamente por razones históricas, pero que TC39 no planea especificar formalmente en el núcleo de JS. Ejemplos incluyen literales octales con prefijo `0`, las utilidades globales `escape(..)` / `unescape(..)`, "helpers" de String como `anchor(..)` y `blink()`, y el método `compile(..)` de RegExp.
 
-Section B.3 includes some conflicts where code may run in both web and non-web JS engines, but where the behavior *could* be observably different, resulting in different outcomes. Most of the listed changes involve situations that are labeled as early errors when code is running in strict mode.
+La Sección B.3 incluye algunos conflictos donde el código puede ejecutarse tanto en motores de JS web como en motores de JS no web, pero donde el comportamiento *podría* ser observadamente diferente, entregando resultados diferentes. La mayoría de los cambios enumerados involucran situaciones etiquetadas como errores tempranos cuando el código se ejecuta en modo estricto.
 
-Appendix B *gotchas* aren't encountered very often, but it's still a good idea to avoid these constructs to be future safe. Wherever possible, adhere to the JS specification and don't rely on behavior that's only applicable in certain JS engine environments.
+No se encuentran *problemas* del Apéndice B muy a menudo, pero aún así es buena idea evitar estas construcciones para estar a salvo en el futuro. Siempre que sea posible, adhiérete a la especificación de JS y no confíes en comportamientos que solo son aplicables en ciertos entornos de motores de JS.
 
-### Not All (Web) JS...
+### No Todo JS (Web)...
 
-Is this code a JS program?
+¿Es este código un programa de JS?
 
 ```js
 alert("Hello, JS!");
 ```
 
-Depends on how you look at things. The `alert(..)` function shown here is not included in the JS specification, but it *is* in all web JS environments. Yet, you won't find it in Appendix B, so what gives?
+Depende de cómo lo veas. La función `alert(..)` mostrada aquí no está incluida en la especificación de JS, pero sí *está* en todos los entornos web de JS. Sin embargo, no la encontrarás en el Apéndice B, ¿entonces qué pasa?
 
-Various JS environments (like browser JS engines, Node.js, etc.) add APIs into the global scope of your JS programs that give you environment-specific capabilities, like being able to pop an alert-style box in the user's browser.
+Varios entornos de JS (como los motores de JS de los navegadores, Node.js, etc.) añaden APIs al ámbito global de tus programas de JS que te proporcionan capacidades específicas del entorno, como la capacidad de mostrar una ventana de alerta en el navegador del usuario.
 
-In fact, a wide range of JS-looking APIs, like `fetch(..)`, `getCurrentLocation(..)`, and `getUserMedia(..)`, are all web APIs that look like JS. In Node.js, we can access hundreds of API methods from various built-in modules, like `fs.write(..)`.
+De hecho, una amplia variedad de APIs que se parecen a JS, como `fetch(..)`, `getCurrentLocation(..)`, y `getUserMedia(..)`, son todas APIs web que parecen JS. En Node.js, podemos acceder a cientos de métodos de API de varios módulos integrados, como `fs.write(..)`.
 
-Another common example is `console.log(..)` (and all the other `console.*` methods!). These are not specified in JS, but because of their universal utility are defined by pretty much every JS environment, according to a roughly agreed consensus.
+Otro ejemplo común es `console.log(..)` (¡y todos los demás métodos de `console.*` !). Estos no están especificados en JS, pero debido a su utilidad universal, son definidos por prácticamente todos los entornos de JS, según un consenso aproximado.
 
-So `alert(..)` and `console.log(..)` are not defined by JS. But they *look* like JS. They are functions and object methods and they obey JS syntax rules. The behaviors behind them are controlled by the environment running the JS engine, but on the surface they definitely have to abide by JS to be able to play in the JS playground.
+Entonces, `alert(..)` y `console.log(..)` no están definidos por JS. Pero *parecen* JS. Son funciones y métodos de objetos y siguen las reglas de sintaxis de JS. Los comportamientos detrás de ellos son controlados por el entorno que ejecuta el motor de JS, pero en la superficie definitivamente tienen que cumplir con JS para poder jugar en el patio de juegos de JS.
 
-Most of the cross-browser differences people complain about with "JS is so inconsistent!" claims are actually due to differences in how those environment behaviors work, not in how the JS itself works.
+La mayoría de las diferencias entre navegadores de las que la gente se queja con afirmaciones como "¡JS es tan inconsistente!" son en realidad debidas a diferencias en cómo funcionan esos comportamientos del entorno, no en cómo funciona el propio JS.
 
-So an `alert(..)` call *is* JS, but `alert` itself is really just a guest, not part of the official JS specification.
+Entonces, una llamada a `alert(..)` *es* JS, pero `alert` en sí mismo es realmente solo un invitado, no parte de la especificación oficial de JS.
 
-### It's Not Always JS
+### No siempre es JS
 
-Using the console/REPL (Read-Evaluate-Print-Loop) in your browser's Developer Tools (or Node) feels like a pretty straightforward JS environment at first glance. But it's not, really.
+Usar la consola/REPL (Read-Evaluate-Print-Loop) en las Herramientas para Desarrolladores de tu navegador (o en Node) parece ser un entorno de JS bastante directo a primera vista. Pero en realidad no lo es.
 
-Developer Tools are... tools for developers. Their primary purpose is to make life easier for developers. They prioritize DX (Developer Experience). It is *not* a goal of such tools to accurately and purely reflect all nuances of strict-spec JS behavior. As such, there's many quirks that may act as "gotchas" if you're treating the console as a *pure* JS environment.
+Las Herramientas para Desarrolladores son... herramientas para desarrolladores. Su propósito principal es hacer la vida más fácil para los desarrolladores. Priorizan la DX (Experiencia del Desarrollador). *No* es una meta de tales herramientas reflejar con precisión y purismo todas las sutilezas del comportamiento estricto de JS. Como tal, hay muchas peculiaridades que pueden actuar como "trampas" si estás tratando la consola como un entorno de JS *puro*.
 
-This convenience is a good thing, by the way! I'm glad Developer Tools make developers' lives easier! I'm glad we have nice UX charms like auto-complete of variables/properties, etc. I'm just pointing out that we can't and shouldn't expect such tools to *always* adhere strictly to the way JS programs are handled, because that's not the purpose of these tools.
+Esta conveniencia es algo bueno, ¡por cierto! Me alegra que las Herramientas para Desarrolladores faciliten la vida de los desarrolladores. Me alegra que tengamos encantos de UX agradables como el autocompletado de variables/propiedades, etc. Solo estoy señalando que no podemos ni debemos esperar que tales herramientas se adhieran *siempre* estrictamente a la manera en que se manejan los programas de JS, porque ese no es el propósito de estas herramientas.
 
-Since such tools vary in behavior from browser to browser, and since they change (sometimes rather frequently), I'm not going to "hardcode" any of the specific details into this text, thereby ensuring this book text is outdated quickly.
+Dado que tales herramientas varían en comportamiento de un navegador a otro, y dado que cambian (a veces bastante frecuentemente), no voy a "codificar" específicamente detalles en este texto, asegurando así que el texto de este libro esté desactualizado rápidamente.
 
-But I'll just hint at some examples of quirks that have been true at various points in different JS console environments, to reinforce my point about not assuming native JS behavior while using them:
+Pero solo daré algunas pistas de ejemplos de peculiaridades que han sido verdaderas en varios momentos en diferentes entornos de consolas de JS, para reforzar mi punto acerca de no asumir el comportamiento nativo de JS mientras las usas:
 
-* Whether a `var` or `function` declaration in the top-level "global scope" of the console actually creates a real global variable (and mirrored `window` property, and vice versa!).
+* Si una declaración `var` o `function` en el "ámbito global" superior de la consola realmente crea una variable global real (¡y una propiedad `window` reflejada, y viceversa!).
 
-* What happens with multiple `let` and `const` declarations in the top-level "global scope."
+* Qué sucede con múltiples declaraciones `let` y `const` en el "ámbito global" superior.
 
-* Whether `"use strict";` on one line-entry (pressing `<enter>` after) enables strict mode for the rest of that console session, the way it would on the first line of a .js file, as well as whether you can use `"use strict";` beyond the "first line" and still get strict mode turned on for that session.
+* Si `"use strict";` en una entrada de una sola línea (presionar `<enter>` después) habilita el modo estricto para el resto de esa sesión de consola, de la misma manera que lo haría en la primera línea de un archivo .js, y también si puedes usar `"use strict";` más allá de la "primera línea" y aún así activar el modo estricto para esa sesión.
 
-* How non-strict mode `this` default-binding works for function calls, and whether the "global object" used will contain expected global variables.
+* Cómo funciona el enlace predeterminado de `this` en el modo no estricto para las llamadas de funciones, y si el "objeto global" utilizado contendrá las variables globales esperadas.
 
-* How hoisting (see Book 2, *Scope & Closures*) works across multiple line entries.
+* Cómo funciona el izado (consulte el Libro 2, *Scope & Closures*) en múltiples entradas de líneas.
 
-* ...several others
+* ...varias otras
 
-The developer console is not trying to pretend to be a JS compiler that handles your entered code exactly the same way the JS engine handles a .js file. It's trying to make it easy for you to quickly enter a few lines of code and see the results immediately. These are entirely different use cases, and as such, it's unreasonable to expect one tool to handle both equally.
+La consola del desarrollador no está tratando de fingir ser un compilador de JS que maneje tu código ingresado exactamente de la misma manera que el motor de JS maneja un archivo .js. Está tratando de facilitarte la entrada rápida de unas pocas líneas de código y ver los resultados de inmediato. Estos son casos de uso completamente diferentes, y como tal, es irrazonable esperar que una herramienta maneje ambos de manera equitativa.
 
-Don't trust what behavior you see in a developer console as representing *exact* to-the-letter JS semantics; for that, read the specification. Instead, think of the console as a "JS-friendly" environment. That's useful in its own right.
+No confíes en el comportamiento que ves en una consola de desarrollador como que representa la semántica *exacta* de JS al pie de la letra; para eso, lee la especificación. En cambio, piensa en la consola como un entorno "amigable con JS". Eso es útil por sí mismo.
 
 ## Many Faces
 
@@ -468,4 +468,4 @@ JS is a compiled language, meaning the tools (including the JS engine) process a
 
 With our language now *defined*, let's start getting to know its ins and outs.
 
-[^specApB]: ECMAScript 2019 Language Specification, Appendix B: Additional ECMAScript Features for Web Browsers, https://www.ecma-international.org/ecma-262/10.0/#sec-additional-ecmascript-features-for-web-browsers (latest as of time of this writing in January 2020)
+[^specApB]: ECMAScript 2019 Language Specification, Appendix B: Additional ECMAScript Features for Web Browsers, https://www.ecma-international.org/ecma-262/10.0/#sec-additional-ecmascript-features-for-web-browsers (la última versión disponible en el momento de escribir esto en enero de 2020)
