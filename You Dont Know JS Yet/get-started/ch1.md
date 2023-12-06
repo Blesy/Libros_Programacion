@@ -98,7 +98,7 @@ Pero ocasionalmente, TC39 decidirá que la especificación debe mantenerse firme
 
 La Sección B.1 y B.2 cubren *adiciones* a JS (sintaxis y APIs) que JS web incluye, nuevamente por razones históricas, pero que TC39 no planea especificar formalmente en el núcleo de JS. Ejemplos incluyen literales octales con prefijo `0`, las utilidades globales `escape(..)` / `unescape(..)`, "helpers" de String como `anchor(..)` y `blink()`, y el método `compile(..)` de RegExp.
 
-La Sección B.3 incluye algunos conflictos donde el código puede ejecutarse tanto en motores de JS web como en motores de JS no web, pero donde el comportamiento *podría* ser observadamente diferente, entregando resultados diferentes. La mayoría de los cambios enumerados involucran situaciones etiquetadas como errores tempranos cuando el código se ejecuta en modo estricto.
+La Sección B.3 incluye algunos conflictos donde el código puede ejecutarse tanto en motores de JS web como en motores de JS no web, pero donde el comportamiento *podría* ser observadamente diferente, entregando resultados diferentes. La mayoría de los cambios enumerados involucran situaciones etiquetadas como errores tempranos cuando el código se ejecuta en strict mode.
 
 No se encuentran *problemas* del Apéndice B muy a menudo, pero aún así es buena idea evitar estas construcciones para estar a salvo en el futuro. Siempre que sea posible, adhiérete a la especificación de JS y no confíes en comportamientos que solo son aplicables en ciertos entornos de motores de JS.
 
@@ -140,7 +140,7 @@ Pero solo daré algunas pistas de ejemplos de peculiaridades que han sido verdad
 
 * Qué sucede con múltiples declaraciones `let` y `const` en el "ámbito global" superior.
 
-* Si `"use strict";` en una entrada de una sola línea (presionar `<enter>` después) habilita el modo estricto para el resto de esa sesión de consola, de la misma manera que lo haría en la primera línea de un archivo .js, y también si puedes usar `"use strict";` más allá de la "primera línea" y aún así activar el modo estricto para esa sesión.
+* Si `"use strict";` en una entrada de una sola línea (presionar `<enter>` después) habilita el strict mode para el resto de esa sesión de consola, de la misma manera que lo haría en la primera línea de un archivo .js, y también si puedes usar `"use strict";` más allá de la "primera línea" y aún así activar el strict mode para esa sesión.
 
 * Cómo funciona el enlace predeterminado de `this` en el modo no estricto para las llamadas de funciones, y si el "objeto global" utilizado contendrá las variables globales esperadas.
 
@@ -152,69 +152,69 @@ La consola del desarrollador no está tratando de fingir ser un compilador de JS
 
 No confíes en el comportamiento que ves en una consola de desarrollador como que representa la semántica *exacta* de JS al pie de la letra; para eso, lee la especificación. En cambio, piensa en la consola como un entorno "amigable con JS". Eso es útil por sí mismo.
 
-## Many Faces
+## Muchas Caras
 
-The term "paradigm" in programming language context refers to a broad (almost universal) mindset and approach to structuring code. Within a paradigm, there are myriad variations of style and form that distinguish programs, including countless different libraries and frameworks that leave their unique signature on any given code.
+El término "paradigma" en el contexto de lenguajes de programación se refiere a una mentalidad y enfoque amplio (casi universal) para estructurar el código. Dentro de un paradigma, hay una miríada de variaciones de estilo y forma que distinguen programas, incluyendo innumerables bibliotecas y marcos diferentes que dejan su firma única en cualquier código dado.
 
-But no matter what a program's individual style may be, the big picture divisions around paradigms are almost always evident at first glance of any program.
+Pero, sin importar cuál sea el estilo individual de un programa, las divisiones a gran escala en torno a los paradigmas casi siempre son evidentes a primera vista de cualquier programa.
 
-Typical paradigm-level code categories include procedural, object-oriented (OO/classes), and functional (FP):
+Las categorías típicas de código a nivel de paradigma incluyen estilo procedural, orientado a objetos (OO/clases) y funcional (FP):
 
-* Procedural style organizes code in a top-down, linear progression through a pre-determined set of operations, usually collected together in related units called procedures.
+* El estilo procedural organiza el código en una progresión lineal de arriba hacia abajo a través de un conjunto predefinido de operaciones, generalmente recopiladas en unidades relacionadas llamadas procedimientos.
 
-* OO style organizes code by collecting logic and data together into units called classes.
+* El estilo OO organiza el código al reunir la lógica y los datos en unidades llamadas clases.
 
-* FP style organizes code into functions (pure computations as opposed to procedures), and the adaptations of those functions as values.
+* El estilo FP organiza el código en funciones (cálculos puros en lugar de procedimientos) y las adaptaciones de esas funciones como valores.
 
-Paradigms are neither right nor wrong. They're orientations that guide and mold how programmers approach problems and solutions, how they structure and maintain their code.
+Los paradigmas no son ni correctos ni incorrectos. Son orientaciones que guían y moldean cómo los programadores abordan problemas y soluciones, cómo estructuran y mantienen su código.
 
-Some languages are heavily slanted toward one paradigm—C is procedural, Java/C++ are almost entirely class oriented, and Haskell is FP through and through.
+Algunos lenguajes están fuertemente inclinados hacia un paradigma en particular; por ejemplo, C es procedural, Java/C++ es casi totalmente orientado a clases, y Haskell es completamente funcional.
 
-But many languages also support code patterns that can come from, and even mix and match from, different paradigms. So called "multi-paradigm languages" offer ultimate flexibility. In some cases, a single program can even have two or more expressions of these paradigms sitting side by side.
+Pero muchos lenguajes también admiten patrones de código que pueden provenir, e incluso combinarse, de diferentes paradigmas. Los llamados "lenguajes multi-paradigma" ofrecen flexibilidad máxima. En algunos casos, un solo programa incluso puede tener dos o más expresiones de estos paradigmas conviviendo uno al lado del otro.
 
-JavaScript is most definitely a multi-paradigm language. You can write procedural, class-oriented, or FP-style code, and you can make those decisions on a line-by-line basis instead of being forced into an all-or-nothing choice.
+JS es definitivamente un lenguaje multi-paradigma. Puedes escribir código procedural, orientado a clases o en estilo FP, y puedes tomar esas decisiones línea por línea en lugar de estar obligado a elegir todo-o-nada.
 
-## Backwards & Forwards
+## Hacia atrás y hacia adelante
 
-One of the most foundational principles that guides JavaScript is preservation of *backwards compatibility*. Many are confused by the implications of this term, and often confuse it with a related but different term: *forwards compatibility*.
+Uno de los principios fundamentales que guía a JS es la preservación de la *compatibilidad hacia atrás*. Muchos se confunden con las implicaciones de este término y a menudo lo confunden con un término relacionado pero diferente: *compatibilidad hacia adelante*.
 
-Let's set the record straight.
+Vamos a aclarar las cosas.
 
-Backwards compatibility means that once something is accepted as valid JS, there will not be a future change to the language that causes that code to become invalid JS. Code written in 1995—however primitive or limited it may have been!—should still work today. As TC39 members often proclaim, "we don't break the web!"
+La compatibilidad hacia atrás significa que, una vez que algo se acepta como código JS válido, no habrá un cambio futuro en el lenguaje que haga que ese código deje de ser válido. El código escrito en 1995, ¡por primitivo o limitado que fuera!, debería seguir funcionando hoy. Como a menudo proclaman los miembros de TC39, "¡no rompemos la web!"
 
-The idea is that JS developers can write code with confidence that their code won't stop working unpredictably because a browser update is released. This makes the decision to choose JS for a program a more wise and safe investment, for years into the future.
+La idea es que los desarrolladores de JS pueden escribir código con la confianza de que su código no dejará de funcionar de manera impredecible porque se lance una actualización del navegador. Esto hace que la decisión de elegir JS para un programa sea una inversión más sabia y segura, durante años en el futuro.
 
-That "guarantee" is no small thing. Maintaining backwards compatibility, stretched out across almost 25 years of the language's history, creates an enormous burden and a whole slew of unique challenges. You'd be hard pressed to find many other examples in computing of such a commitment to backwards compatibility.
+Esa "garantía" no es algo pequeño. Mantener la compatibilidad hacia atrás, extendida a lo largo de casi 25 años de la historia del lenguaje, crea una enorme carga y una serie de desafíos únicos. Sería difícil encontrar muchos otros ejemplos en informática de un compromiso tan firme con la compatibilidad hacia atrás.
 
-The costs of sticking to this principle should not be casually dismissed. It necessarily creates a very high bar to including changing or extending the language; any decision becomes effectively permanent, mistakes and all. Once it's in JS, it can't be taken out because it might break programs, even if we'd really, really like to remove it!
+Los costos de adherirse a este principio no deben ser desestimados. Esto crea una barrera muy alta para incluir cambios o extensiones en el lenguaje; cualquier decisión se vuelve efectivamente permanente, con errores y todo. Una vez que está en JS, no se puede quitar porque podría romper programas, ¡incluso si realmente quisiéramos eliminarlo!
 
-There are some small exceptions to this rule. JS has had some backwards-incompatible changes, but TC39 is extremely cautious in doing so. They study existing code on the web (via browser data gathering) to estimate the impact of such breakage, and browsers ultimately decide and vote on whether they're willing to take the heat from users for a very small-scale breakage weighed against the benefits of fixing or improving some aspect of the language for many more sites (and users).
+Hay algunas pequeñas excepciones a esta regla. JS ha tenido algunos cambios incompatibles hacia atrás, pero TC39 es extremadamente cauteloso al hacerlo. Estudian el código existente en la web (a través de la recopilación de datos del navegador) para estimar el impacto de tales cambios, y los navegadores finalmente deciden y votan si están dispuestos a enfrentar las críticas de los usuarios por un cambio de muy pequeña escala frente a los beneficios de corregir o mejorar algún aspecto del lenguaje para muchos más sitios (y usuarios).
 
-These kinds of changes are rare, and are almost always in corner cases of usage that are unlikely to be observably breaking in many sites.
+Estos cambios son raros y casi siempre se dan en casos marginales de uso que es poco probable que se rompan de manera observable en muchos sitios.
 
-Compare *backwards compatibility* to its counterpart, *forwards compatibility*. Being forwards-compatible means that including a new addition to the language in a program would not cause that program to break if it were run in an older JS engine. **JS is not forwards-compatible**, despite many wishing such, and even incorrectly believing the myth that it is.
+Comparado con la *compatibilidad hacia atrás*, su contraparte, la *compatibilidad hacia adelante*. Ser hacia adelante-compatible significa que incluir una nueva adición al lenguaje en un programa no haría que ese programa se rompiera si se ejecutara en un motor JS más antiguo. **JS no es compatible hacia adelante**, a pesar de que muchos lo desean e incluso creen incorrectamente en el mito de que lo es.
 
-HTML and CSS, by contrast, are forwards-compatible but not backwards-compatible. If you dug up some HTML or CSS written back in 1995, it's entirely possible it would not work (or work the same) today. But, if you use a new feature from 2019 in a browser from 2010, the page isn't "broken" -- the unrecognized CSS/HTML is skipped over, while the rest of the CSS/HTML would be processed accordingly.
+HTML y CSS, en cambio, son hacia adelante compatibles pero no hacia atrás. Si desenterrases algo de HTML o CSS escrito en 1995, es completamente posible que no funcione (o funcione de la misma manera) hoy. Pero, si usas una nueva función de 2019 en un navegador de 2010, la página no está "rota" -- el CSS/HTML no reconocido se pasa por alto, mientras que el resto de la CSS/HTML se procesaría según corresponda.
 
-It may seem desirable for forwards-compatibility to be included in programming language design, but it's generally impractical to do so. Markup (HTML) or styling (CSS) are declarative in nature, so it's much easier to "skip over" unrecognized declarations with minimal impact to other recognized declarations.
+Puede parecer deseable incluir la compatibilidad hacia adelante en el diseño de lenguajes de programación, pero generalmente es impráctico hacerlo. La marcación (HTML) o el estilo (CSS) son de naturaleza declarativa, por lo que es mucho más fácil "pasar por alto" declaraciones no reconocidas con un impacto mínimo en otras declaraciones reconocidas.
 
-But chaos and non-determinism would ensue if a programming language engine selectively skipped statements (or even expressions!) that it didn't understand, as it's impossible to ensure that a subsequent part of the program wasn't expecting the skipped-over part to have been processed.
+Pero el caos y la no determinismo se producirían si un motor de lenguaje de programación selectivamente omitiera declaraciones (¡incluso expresiones!) que no entendiera, ya que es imposible asegurar que una parte posterior del programa no esperara que la parte omitida haya sido procesada.
 
-Though JS isn't, and can't be, forwards-compatible, it's critical to recognize JS's backwards compatibility, including the enduring benefits to the web and the constraints and difficulties it places on JS as a result.
+Aunque JavaScript no es, ni puede ser, compatible hacia adelante, es fundamental reconocer la compatibilidad hacia atrás de JavaScript, incluidos los beneficios duraderos para la web y las limitaciones y dificultades que impone a JavaScript como resultado.
 
-### Jumping the Gaps
+### Saltando las brechas
 
-Since JS is not forwards-compatible, it means that there is always the potential for a gap between code that you can write that's valid JS, and the oldest engine that your site or application needs to support. If you run a program that uses an ES2019 feature in an engine from 2016, you're very likely to see the program break and crash.
+Dado que JavaScript no es compatible hacia adelante, significa que siempre existe el potencial de una brecha entre el código que puedes escribir que es válido en JavaScript y el motor más antiguo que tu sitio o aplicación necesita admitir. Si ejecutas un programa que utiliza una característica de ES2019 en un motor de 2016, es muy probable que veas que el programa se rompe y falla.
 
-If the feature is a new syntax, the program will in general completely fail to compile and run, usually throwing a syntax error. If the feature is an API (such as ES6's `Object.is(..)`), the program may run up to a point but then throw a runtime exception and stop once it encounters the reference to the unknown API.
+Si la característica es una nueva sintaxis, el programa generalmente fallará por completo al compilar y ejecutarse, generalmente arrojando un error de sintaxis. Si la característica es una API (como `Object.is(..)` en ES6), el programa puede ejecutarse hasta cierto punto, pero luego arrojará una excepción en tiempo de ejecución y se detendrá una vez que encuentre la referencia a la API desconocida.
 
-Does this mean JS developers should always lag behind the pace of progress, using only code that is on the trailing edge of the oldest JS engine environments they need to support? No!
+¿Significa esto que los desarrolladores de JavaScript siempre deben quedarse atrás en el ritmo del progreso, utilizando solo código que esté en la vanguardia de los entornos de motor JS más antiguos que necesitan admitir? ¡No!
 
-But it does mean that JS developers need to take special care to address this gap.
+Pero sí significa que los desarrolladores de JavaScript deben tener un cuidado especial para abordar esta brecha.
 
-For new and incompatible syntax, the solution is transpiling. Transpiling is a contrived and community-invented term to describe using a tool to convert the source code of a program from one form to another (but still as textual source code). Typically, forwards-compatibility problems related to syntax are solved by using a transpiler (the most common one being Babel (https://babeljs.io)) to convert from that newer JS syntax version to an equivalent older syntax.
+Para la nueva sintaxis e incompatible, la solución es la transpilación. La transpilación es un término inventado por la comunidad para describir el uso de una herramienta para convertir el código fuente de un programa de una forma a otra (pero aún como código fuente textual). Por lo general, los problemas de compatibilidad hacia adelante relacionados con la sintaxis se resuelven utilizando un transpilador (el más común siendo Babel (https://babeljs.io)) para convertir esa nueva versión de sintaxis de JavaScript a una sintaxis más antigua equivalente.
 
-For example, a developer may write a snippet of code like:
+Por ejemplo, un desarrollador puede escribir un fragmento de código como:
 
 ```js
 if (something) {
@@ -227,7 +227,7 @@ else {
 }
 ```
 
-This is how the code would look in the source code tree for that application. But when producing the file(s) to deploy to the public website, the Babel transpiler might convert that code to look like this:
+Así es como se vería el código en el árbol de código fuente de esa aplicación. Pero al producir el archivo (o archivos) para implementar en el sitio web público, el transpilador Babel podría convertir ese código para que se vea así:
 
 ```js
 var x$0, x$1;
@@ -241,39 +241,39 @@ else {
 }
 ```
 
-The original snippet relied on `let` to create block-scoped `x` variables in both the `if` and `else` clauses which did not interfere with each other. An equivalent program (with minimal re-working) that Babel can produce just chooses to name two different variables with unique names, producing the same non-interference outcome.
+El fragmento original dependía de `let` para crear variables `x` con ámbito de bloque en las cláusulas `if` y `else`, que no interferían entre sí. Un programa equivalente (con mínimas modificaciones) que Babel puede producir simplemente elige nombrar dos variables diferentes con nombres únicos, logrando el mismo resultado de no interferencia.
 
-| NOTE: |
+| NOTA: |
 | :--- |
-| The `let` keyword was added in ES6 (in 2015). The preceding example of transpiling would only need to apply if an application needed to run in a pre-ES6 supporting JS environment. The example here is just for simplicity of illustration. When ES6 was new, the need for such a transpilation was quite prevalent, but in 2020 it's much less common to need to support pre-ES6 environments. The "target" used for transpiliation is thus a sliding window that shifts upward only as decisions are made for a site/application to stop supporting some old browser/engine. |
+| La palabra clave `let` se agregó en ES6 (en 2015). El ejemplo anterior de transpilación solo sería necesario aplicarlo si una aplicación necesita ejecutarse en un entorno JS compatible con versiones anteriores a ES6. El ejemplo aquí es solo para simplificar la ilustración. Cuando ES6 era nuevo, la necesidad de esa transpilación era bastante común, pero en 2020 es mucho menos común necesitar admitir entornos pre-ES6. El "objetivo" utilizado para la transpilación es, por lo tanto, una ventana deslizante que se desplaza hacia arriba solo cuando se toman decisiones para que un sitio/aplicación deje de admitir algún navegador/motor antiguo. |
 
-You may wonder: why go to the trouble of using a tool to convert from a newer syntax version to an older one? Couldn't we just write the two variables and skip using the `let` keyword? The reason is, it's strongly recommended that developers use the latest version of JS so that their code is clean and communicates its ideas most effectively.
+Puede preguntarse: ¿por qué molestarse en usar una herramienta para convertir desde una versión de sintaxis más nueva a una más antigua? ¿No podríamos simplemente escribir las dos variables y evitar el uso de la palabra clave `let`? La razón es que se recomienda encarecidamente que los desarrolladores utilicen la última versión de JS para que su código sea limpio y comunique sus ideas de manera más efectiva.
 
-Developers should focus on writing the clean, new syntax forms, and let the tools take care of producing a forwards-compatible version of that code that is suitable to deploy and run on the oldest-supported JS engine environments.
+Los desarrolladores deben centrarse en escribir las formas de sintaxis nuevas y limpias, y permitir que las herramientas se encarguen de producir una versión compatible con el futuro de ese código que sea adecuada para implementar y ejecutar en los entornos de motor JS admitidos más antiguos.
 
-### Filling the Gaps
+### Llenando los vacíos
 
-If the forwards-compatibility issue is not related to new syntax, but rather to a missing API method that was only recently added, the most common solution is to provide a definition for that missing API method that stands in and acts as if the older environment had already had it natively defined. This pattern is called a polyfill (aka "shim").
+Si el problema de la compatibilidad futura no está relacionado con la nueva sintaxis, sino con un método de API faltante que se agregó recientemente, la solución más común es proporcionar una definición para ese método de API faltante que funcione como si el entorno más antiguo ya lo hubiera tenido definido de forma nativa. Este patrón se llama polyfill (también conocido como "shim").
 
-Consider this code:
+Considera este código:
 
 ```js
-// getSomeRecords() returns us a promise for some
-// data it will fetch
+// getSomeRecords() nos regresa una promesa para algunos
+// datos que recuperará
 var pr = getSomeRecords();
 
-// show the UI spinner while we get the data
+// mostrar el spinner UI mientras obtenemos los datos
 startSpinner();
 
 pr
-.then(renderRecords)   // render if successful
-.catch(showError)      // show an error if not
-.finally(hideSpinner)  // always hide the spinner
+.then(renderRecords)   // renderizar si tiene éxito
+.catch(showError)      // mostrar un error si no
+.finally(hideSpinner)  // siempre oculta el spinner
 ```
 
-This code uses an ES2019 feature, the `finally(..)` method on the promise prototype. If this code were used in a pre-ES2019 environment, the `finally(..)` method would not exist, and an error would occur.
+Este código utiliza una característica de ES2019, el método `finally(..)` en el prototipo de la promesa. Si este código se usara en un entorno anterior a ES2019, el método `finally(..)` no existiría y se produciría un error.
 
-A polyfill for `finally(..)` in pre-ES2019 environments could look like this:
+Un polyfill para `finally(..)` en entornos previos a ES2019 podría verse así:
 
 ```js
 if (!Promise.prototype.finally) {
@@ -296,176 +296,175 @@ if (!Promise.prototype.finally) {
 }
 ```
 
-| WARNING: |
+| ADVERTENCIA: |
 | :--- |
-| This is only a simple illustration of a basic (not entirely spec-compliant) polyfill for `finally(..)`. Don't use this polyfill in your code; always use a robust, official polyfill wherever possible, such as the collection of polyfills/shims in ES-Shim. |
+| Esta es solo una ilustración simple de un polyfill básico (que no cumple completamente con las especificaciones) para `finally(..)`. No uses este polyfill en tu código; siempre utiliza un polyfill oficial y robusto cuando sea posible, como la colección de polyfills/shims en ES-Shim. |
 
-The `if` statement protects the polyfill definition by preventing it from running in any environment where the JS engine has already defined that method. In older environments, the polyfill is defined, but in newer environments the `if` statement is quietly skipped.
+La declaración `if` protege la definición del polyfill al evitar que se ejecute en cualquier entorno donde el motor JS ya haya definido ese método. En entornos más antiguos, el polyfill se define, pero en entornos más nuevos, la declaración `if` se salta silenciosamente.
 
-Transpilers like Babel typically detect which polyfills your code needs and provide them automatically for you. But occasionally you may need to include/define them explicitly, which works similar to the snippet we just looked at.
+Los transpiladores como Babel generalmente detectan qué polyfills necesita tu código y los proporcionan automáticamente. Pero ocasionalmente puede ser necesario incluirlos/definirlos explícitamente, lo cual funciona de manera similar al fragmento que acabamos de ver.
 
-Always write code using the most appropriate features to communicate its ideas and intent effectively. In general, this means using the most recent stable JS version. Avoid negatively impacting the code's readability by trying to manually adjust for the syntax/API gaps. That's what tools are for!
+Siempre escribe código utilizando las características más apropiadas para comunicar sus ideas e intenciones de manera efectiva. En general, esto significa usar la versión más reciente y estable de JS. Evita afectar negativamente la legibilidad del código tratando de ajustar manualmente las lagunas de sintaxis/API. ¡Para eso están las herramientas!
 
-Transpilation and polyfilling are two highly effective techniques for addressing that gap between code that uses the latest stable features in the language and the old environments a site or application needs to still support. Since JS isn't going to stop improving, the gap will never go away. Both techniques should be embraced as a standard part of every JS project's production chain going forward.
+La transpilación y el polyfilling son dos técnicas altamente efectivas para abordar la brecha entre el código que utiliza las características más recientes y estables del lenguaje y los antiguos entornos que un sitio o aplicación aún necesita admitir. Dado que JS no dejará de mejorar, la brecha nunca desaparecerá. Ambas técnicas deberían ser adoptadas como parte estándar de la cadena de producción de cada proyecto de JS en el futuro.
 
-## What's in an Interpretation?
+## ¿Qué hay en una interpretación?
 
-A long-debated question for code written in JS: is it an interpreted script or a compiled program? The majority opinion seems to be that JS is an interpreted (scripting) language. But the truth is more complicated than that.
+Durante mucho tiempo, ha existido un debate sobre si el código escrito en JS es un script interpretado o un programa compilado. La opinión mayoritaria parece ser que JS es un lenguaje interpretado (de scripting). Sin embargo, la verdad es más complicada que eso.
 
-For much of the history of programming languages, "interpreted" languages and "scripting" languages have been looked down on as inferior compared to their compiled counterparts. The reasons for this acrimony are numerous, including the perception that there is a lack of performance optimization, as well as dislike of certain language characteristics, such as scripting languages generally using dynamic typing instead of the "more mature" statically typed languages.
+Durante gran parte de la historia de los lenguajes de programación, los lenguajes "interpretados" y los lenguajes "de scripting" han sido considerados inferiores en comparación con sus contrapartes compiladas. Las razones para esta animosidad son numerosas, incluyendo la percepción de una falta de optimización de rendimiento, así como la aversión a ciertas características del lenguaje, como el uso de tipos dinámicos en lugar de los "más maduros" lenguajes de tipos estáticos.
 
-Languages regarded as "compiled" usually produce a portable (binary) representation of the program that is distributed for execution later. Since we don't really observe that kind of model with JS (we distribute the source code, not the binary form), many claim that disqualifies JS from the category. In reality, the distribution model for a program's "executable" form has become drastically more varied and also less relevant over the last few decades; to the question at hand, it doesn't really matter so much anymore what form of a program gets passed around.
+Los lenguajes considerados "compilados" generalmente producen una representación (binaria) portátil del programa que se distribuye para su ejecución posterior. Dado que no observamos realmente ese tipo de modelo con JS (distribuimos el código fuente, no la forma binaria), muchos afirman que esto descalifica a JS de esa categoría. En realidad, el modelo de distribución de la forma "ejecutable" de un programa se ha vuelto drásticamente más variado y también menos relevante en las últimas décadas; para la pregunta en cuestión, ya no importa tanto la forma en que se distribuye un programa.
 
-These misinformed claims and criticisms should be set aside. The real reason it matters to have a clear picture on whether JS is interpreted or compiled relates to the nature of how errors are handled.
+Estas afirmaciones y críticas desinformadas deben ser dejadas de lado. La verdadera razón por la que importa tener una imagen clara de si JS es interpretado o compilado se relaciona con la forma en que se manejan los errores.
 
-Historically, scripted or interpreted languages were executed in generally a top-down and line-by-line fashion; there's typically not an initial pass through the program to process it before execution begins (see Figure 1).
+Históricamente, los lenguajes scriptados o interpretados se ejecutaban generalmente de arriba hacia abajo y línea por línea; por lo general, no hay un pase inicial a través del programa para procesarlo antes de que comience la ejecución (ver Figura 1).
 
 <figure>
-    <img src="images/fig1.png" width="650" alt="Interpreting a script to execute it" align="center">
-    <figcaption><em>Fig. 1: Interpreted/Scripted Execution</em></figcaption>
+    <img src="images/fig1.png" width="650" alt="Interpretar un script para ejecutarlo" align="center">
+    <figcaption><em>Fig. 1: Ejecución Interpretada/Scripted</em></figcaption>
     <br><br>
 </figure>
 
-In scripted or interpreted languages, an error on line 5 of a program won't be discovered until lines 1 through 4 have already executed. Notably, the error on line 5 might be due to a runtime condition, such as some variable or value having an unsuitable value for an operation, or it may be due to a malformed statement/command on that line. Depending on context, deferring error handling to the line the error occurs on may be a desirable or undesirable effect.
+En lenguajes scriptados o interpretados, un error en la línea 5 de un programa no se descubrirá hasta que las líneas 1 a 4 ya se hayan ejecutado. Es importante destacar que el error en la línea 5 puede deberse a una condición en tiempo de ejecución, como algún valor o variable que tiene un valor inadecuado para una operación, o puede deberse a una declaración o comando mal formado en esa línea. Dependiendo del contexto, posponer el manejo de errores hasta la línea en la que ocurre el error puede ser un efecto deseable o indeseable.
 
-Compare that to languages which do go through a processing step (typically, called parsing) before any execution occurs, as illustrated in Figure 2:
+Comparado con lenguajes que sí pasan por una etapa de procesamiento (normalmente llamada análisis) antes de que ocurra cualquier ejecución, como se ilustra en la Figura 2:
 
 <figure>
-    <img src="images/fig2.png" width="650" alt="Parsing, compiling, and executing a program" align="center">
-    <figcaption><em>Fig. 2: Parsing + Compilation + Execution</em></figcaption>
+    <img src="images/fig2.png" width="650" alt="Parsear, compilar y ejecutar un programa" align="center">
+    <figcaption><em>Fig. 2: Parseo + Compilación + Ejecución</em></figcaption>
     <br><br>
 </figure>
 
-In this processing model, an invalid command (such as broken syntax) on line 5 would be caught during the parsing phase, before any execution has begun, and none of the program would run. For catching syntax (or otherwise "static") errors, generally it's preferred to know about them ahead of any doomed partial execution.
+En este modelo de procesamiento, un comando no válido (como una sintaxis incorrecta) en la línea 5 se detectaría durante la fase de análisis, antes de que comience cualquier ejecución, y ninguno de los programas se ejecutaría. Para capturar errores de sintaxis (o errores "estáticos"), generalmente es preferible conocerlos antes de cualquier ejecución parcial condenada.
 
-So what do "parsed" languages have in common with "compiled" languages? First, all compiled languages are parsed. So a parsed language is quite a ways down the road toward being compiled already. In classic compilation theory, the last remaining step after parsing is code generation: producing an executable form.
+Entonces, ¿qué tienen en común los lenguajes "parseados" con los lenguajes "compilados"? Primero, todos los lenguajes compilados son parseados. Por lo tanto, un lenguaje parseado está bastante avanzado en el camino hacia ser compilado. En la teoría clásica de la compilación, el último paso restante después del análisis es la generación de código: producir una forma ejecutable.
 
-Once any source program has been fully parsed, it's very common that its subsequent execution will, in some form or fashion, include a translation from the parsed form of the program—usually called an Abstract Syntax Tree (AST)—to that executable form.
+Una vez que se ha parseado completamente un programa fuente, es muy común que su ejecución posterior incluya, de alguna forma, una traducción desde la forma parseada del programa, generalmente llamada Árbol de Sintaxis Abstracta (AST), hasta esa forma ejecutable.
 
-In other words, parsed languages usually also perform code generation before execution, so it's not that much of a stretch to say that, in spirit, they're compiled languages.
+En otras palabras, los lenguajes parseados suelen realizar la generación de código antes de la ejecución, por lo que no es tan exagerado decir que, en espíritu, son lenguajes compilados.
 
-JS source code is parsed before it is executed. The specification requires as much, because it calls for "early errors"—statically determined errors in code, such as a duplicate parameter name—to be reported before the code starts executing. Those errors cannot be recognized without the code having been parsed.
+El código fuente de JS se parsea antes de ejecutarse. La especificación lo requiere, porque exige "errores tempranos" —errores estáticamente determinados en el código, como un nombre de parámetro duplicado— que se informen antes de que el código comience a ejecutarse. Esos errores no se pueden reconocer sin que el código haya sido parseado.
 
-So **JS is a parsed language**, but is it *compiled*?
+Entonces, **JS es un lenguaje parseado**, pero ¿está compilado?
 
-The answer is closer to yes than no. The parsed JS is converted to an optimized (binary) form, and that "code" is subsequently executed (Figure 2); the engine does not commonly switch back into line-by-line execution (like Figure 1) mode after it has finished all the hard work of parsing—most languages/engines wouldn't, because that would be highly inefficient.
+La respuesta está más cerca del sí que del no. El JS parseado se convierte en una forma optimizada (binaria), y ese "código" se ejecuta posteriormente (Figura 2); el motor no suele cambiar a un modo de ejecución línea por línea (como en la Figura 1) después de haber terminado todo el trabajo duro de análisis, ya que eso sería altamente ineficiente.
 
-To be specific, this "compilation" produces a binary byte code (of sorts), which is then handed to the "JS virtual machine" to execute. Some like to say this VM is "interpreting" the byte code. But then that means Java, and a dozen other JVM-driven languages, for that matter, are interpreted rather than compiled. Of course, that contradicts the typical assertion that Java/etc are compiled languages.
+Para ser específicos, esta "compilación" produce un código binario (de alguna manera), que luego se entrega a la "máquina virtual de JS" para ejecutarlo. A algunos les gusta decir que esta MV está "interpretando" el código binario. Pero eso significaría que Java, y una docena de otros lenguajes impulsados por JVM, por cierto, se interpretan en lugar de compilarse. Por supuesto, eso contradice la afirmación típica de que Java/etc. son lenguajes compilados.
 
-Interestingly, while Java and JavaScript are very different languages, the question of interpreted/compiled is pretty closely related between them!
+Curiosamente, aunque Java y JavaScript son lenguajes muy diferentes, la pregunta de interpretación/compilación está bastante relacionada entre ellos.
 
-Another wrinkle is that JS engines can employ multiple passes of JIT (Just-In-Time) processing/optimization on the generated code (post parsing), which again could reasonably be labeled either "compilation" or "interpretation" depending on perspective. It's actually a fantastically complex situation under the hood of a JS engine.
+Otra complicación es que los motores de JS pueden emplear múltiples pasadas de procesamiento/optimización JIT (Just-In-Time) en el código generado (post análisis), que nuevamente podría etiquetarse razonablemente como "compilación" o "interpretación" dependiendo de la perspectiva. De hecho, es una situación fantásticamente compleja bajo el capó de un motor de JS.
 
-So what do these nitty-gritty details boil down to? Step back and consider the entire flow of a JS source program:
+Entonces, ¿en qué se reducen estos detalles minuciosos? Retrocede y considera todo el flujo de un programa fuente de JS:
 
-1. After a program leaves a developer's editor, it gets transpiled by Babel, then packed by Webpack (and perhaps half a dozen other build processes), then it gets delivered in that very different form to a JS engine.
+1. Después de que un programa sale del editor de un desarrollador, se transpila con Babel, luego se empaca con Webpack (y tal vez media docena de otros procesos de construcción), luego se entrega en esa forma muy diferente a un motor de JS.
 
-2. The JS engine parses the code to an AST.
+2. El motor de JS parsea el código a un AST.
 
-3. Then the engine converts that AST to a kind-of byte code, a binary intermediate representation (IR), which is then refined/converted even further by the optimizing JIT compiler.
+3. Luego, el motor convierte ese AST en una especie de código binario, una representación intermedia binaria (IR), que luego es refinada/convertida aún más por el compilador JIT optimizado.
 
-4. Finally, the JS VM executes the program.
+4. Finalmente, la MV de JS ejecuta el programa.
 
-To visualize those steps, again:
+Para visualizar esos pasos, nuevamente:
 
 <figure>
-    <img src="images/fig3.png" width="650" alt="Steps of JS compilation and execution" align="center">
-    <figcaption><em>Fig. 3: Parsing, Compiling, and Executing JS</em></figcaption>
+    <img src="images/fig3.png" width="650" alt="Pasos de compilación y ejecución de JS" align="center">
+    <figcaption><em>Fig. 3: Parseando, Compilando, y Ejecutando JS</em></figcaption>
     <br><br>
 </figure>
 
-Is JS handled more like an interpreted, line-by-line script, as in Figure 1, or is it handled more like a compiled language that's processed in one-to-several passes first, before execution (as in Figures 2 and 3)?
+¿JS se maneja más como un script interpretado, línea por línea, como en la Figura 1, o se maneja más como un lenguaje compilado que se procesa en uno o varios pasos primero, antes de la ejecución (como en las Figuras 2 y 3)?
 
-I think it's clear that in spirit, if not in practice, **JS is a compiled language**.
+Creo que está claro que en espíritu, si no en la práctica, **JS es un lenguaje compilado**.
 
-And again, the reason that matters is, since JS is compiled, we are informed of static errors (such as malformed syntax) before our code is executed. That is a substantively different interaction model than we get with traditional "scripting" programs, and arguably more helpful!
+Y nuevamente, la razón por la que esto importa es que, como JS está compilado, se nos informa de errores estáticos (como sintaxis malformada) antes de que se ejecute nuestro código. ¡Ese es un modelo de interacción sustancialmente diferente al que obtenemos con los programas de "scripting" tradicionales y podría argumentarse que es más útil!
 
 ### Web Assembly (WASM)
 
-One dominating concern that has driven a significant amount of JS's evolution is performance, both how quickly JS can be parsed/compiled and how quickly that compiled code can be executed.
+Una preocupación dominante que ha impulsado gran parte de la evolución de JS es el rendimiento, tanto en cuanto a la rapidez con la que JS puede ser parseado/compilado como a la velocidad con la que se puede ejecutar ese código compilado.
 
-In 2013, engineers from Mozilla Firefox demonstrated a port of the Unreal 3 game engine from C to JS. The ability for this code to run in a browser JS engine at full 60fps performance was predicated on a set of optimizations that the JS engine could perform specifically because the JS version of the Unreal engine's code used a style of code that favored a subset of the JS language, named "ASM.js".
+En 2013, ingenieros de Mozilla Firefox demostraron la portabilidad del motor de juegos Unreal 3 desde C a JS. La capacidad de que este código se ejecutara en un motor JS del navegador a una velocidad completa de 60 fps se basaba en un conjunto de optimizaciones que el motor JS podía realizar específicamente porque la versión JS del código del motor Unreal utilizaba un estilo de código que favorecía a un subconjunto del lenguaje JS, llamado "ASM.js".
 
-This subset is valid JS written in ways that are somewhat uncommon in normal coding, but which signal certain important typing information to the engine that allow it to make key optimizations. ASM.js was introduced as one way of addressing the pressures on the runtime performance of JS.
+Este subconjunto es JS válido escrito de maneras que son algo inusuales en la programación normal, pero que señalan cierta información de tipado importante al motor que le permiten realizar optimizaciones clave. ASM.js se introdujo como una forma de abordar las presiones sobre el rendimiento en tiempo de ejecución de JS.
 
-But it's important to note that ASM.js was never intended to be code that was authored by developers, but rather a representation of a program having been transpiled from another language (such as C), where these typing "annotations" were inserted automatically by the tooling.
+Pero es importante destacar que ASM.js nunca se pretendió que fuera código escrito por desarrolladores, sino más bien una representación de un programa que se había transpilado desde otro lenguaje (como C), donde estas "anotaciones" de tipado se insertaron automáticamente mediante las herramientas.
 
-Several years after ASM.js demonstrated the validity of tooling-created versions of programs that can be processed more efficiently by the JS engine, another group of engineers (also, initially, from Mozilla) released Web Assembly (WASM).
+Varios años después de que ASM.js demostrara la validez de versiones de programas creadas por herramientas que pueden procesarse de manera más eficiente en el motor JS, otro grupo de ingenieros (también, inicialmente, de Mozilla) lanzó WebAssembly (WASM).
 
-WASM is similar to ASM.js in that its original intent was to provide a path for non-JS programs (C, etc.) to be converted to a form that could run in the JS engine. Unlike ASM.js, WASM chose to additionally get around some of the inherent delays in JS parsing/compilation before a program can execute, by representing the program in a form that is entirely unlike JS.
+WASM es similar a ASM.js en el sentido de que su intención original era proporcionar un camino para que los programas no JS (C, etc.) se convirtieran en una forma que pudiera ejecutarse en el motor JS. A diferencia de ASM.js, WASM eligió además sortear algunos de los retrasos inherentes en el análisis/compilación de JS antes de que un programa pueda ejecutarse, representando el programa en una forma que es completamente diferente a JS.
 
-WASM is a representation format more akin to Assembly (hence, its name) that can be processed by a JS engine by skipping the parsing/compilation that the JS engine normally does. The parsing/compilation of a WASM-targeted program happen ahead of time (AOT); what's distributed is a binary-packed program ready for the JS engine to execute with very minimal processing.
+WASM es un formato de representación más parecido a Assembly (de ahí su nombre) que puede ser procesado por un motor JS al omitir el análisis/compilación que normalmente realiza el motor JS. El análisis/compilación de un programa dirigido a WASM se realiza antes de tiempo (AOT); lo que se distribuye es un programa binario empaquetado listo para que el motor JS lo ejecute con un procesamiento mínimo.
 
-An initial motivation for WASM was clearly the potential performance improvements. While that continues to be a focus, WASM is additionally motivated by the desire to bring more parity for non-JS languages to the web platform. For example, if a language like Go supports threaded programming, but JS (the language) does not, WASM offers the potential for such a Go program to be converted to a form the JS engine can understand, without needing a threads feature in the JS language itself.
+Una motivación inicial para WASM fue claramente la mejora potencial de rendimiento. Aunque eso sigue siendo un enfoque, WASM también está motivado por el deseo de llevar más paridad a las lenguas no JS a la plataforma web. Por ejemplo, si un lenguaje como Go admite la programación con hilos, pero JS (el lenguaje) no lo hace, WASM ofrece la posibilidad de que dicho programa Go se convierta a una forma que el motor JS pueda entender, sin necesidad de una función de hilos en el propio lenguaje JS.
 
-In other words, WASM relieves the pressure to add features to JS that are mostly/exclusively intended to be used by transpiled programs from other languages. That means JS feature development can be judged (by TC39) without being skewed by interests/demands in other language ecosystems, while still letting those languages have a viable path onto the web.
+En otras palabras, WASM alivia la presión de agregar características a JS que están mayormente/exclusivamente destinadas a ser utilizadas por programas transpilados de otros lenguajes. Eso significa que el desarrollo de características de JS puede ser evaluado (por TC39) sin verse sesgado por intereses/demandas en otros ecosistemas de lenguajes, al tiempo que permite que esos lenguajes tengan una vía viable hacia la web.
 
-Another perspective on WASM that's emerging is, interestingly, not even directly related to the web (W). WASM is evolving to become a cross-platform virtual machine (VM) of sorts, where programs can be compiled once and run in a variety of different system environments.
+Otra perspectiva sobre WASM que está surgiendo es, interesantemente, ni siquiera está directamente relacionada con la web (W). WASM está evolucionando para convertirse en una especie de máquina virtual (VM) multiplataforma, donde los programas pueden compilarse una vez y ejecutarse en una variedad de entornos de sistemas diferentes.
 
-So, WASM isn't only for the web, and WASM also isn't JS. Ironically, even though WASM runs in the JS engine, the JS language is one of the least suitable languages to source WASM programs with, because WASM relies heavily on static typing information. Even TypeScript (TS)—ostensibly, JS + static types—is not quite suitable (as it stands) to transpile to WASM, though language variants like AssemblyScript are attempting to bridge the gap between JS/TS and WASM.
+Entonces, WASM no es solo para la web, y WASM tampoco es JS. Irónicamente, aunque WASM se ejecuta en el motor JS, el lenguaje JS es uno de los menos adecuados para generar programas WASM, porque WASM depende en gran medida de información de tipado estático. Incluso TypeScript (TS), ostensiblemente JS + tipos estáticos, no es del todo adecuado (tal como está) para transpilarse a WASM, aunque variantes de lenguaje como AssemblyScript están tratando de cerrar la brecha entre JS/TS y WASM.
 
-This book isn't about WASM, so I won't spend much more time discussing it, except to make one final point. *Some* folks have suggested WASM points to a future where JS is excised from, or minimized in, the web. These folks often harbor ill feelings about JS, and want some other language—any other language!—to replace it. Since WASM lets other languages run in the JS engine, on its face this isn't an entirely fanciful fairytale.
+Este libro no trata sobre WASM, así que no dedicaré mucho más tiempo a discutirlo, excepto para hacer un último punto. *Algunas* personas han sugerido que WASM apunta a un futuro en el que JS sea excluido o minimizado en la web. Estas personas a menudo albergan sentimientos negativos sobre JS y quieren que algún otro lenguaje, ¡cualquier otro lenguaje!, lo reemplace. Dado que WASM permite que otros lenguajes se ejecuten en el motor JS, en principio, esto no es un cuento de hadas completamente fantástico.
 
-But let me just state simply: WASM will not replace JS. WASM significantly augments what the web (including JS) can accomplish. That's a great thing, entirely orthogonal to whether some people will use it as an escape hatch from having to write JS.
+Pero permíteme decir simplemente: WASM no reemplazará a JS. WASM aumenta significativamente lo que la web (incluido JS) puede lograr. Eso es algo excelente, totalmente independiente de si algunas personas lo usarán como una salida para no tener que escribir JS.
 
-## *Strict*ly Speaking
+## E*strict*amente hablando
 
-Back in 2009 with the release of ES5, JS added *strict mode* as an opt-in mechanism for encouraging better JS programs.
+En 2009, con el lanzamiento de ES5, JS añadió el *strict mode* como un mecanismo opcional para fomentar la creación de programas JS de mejor calidad.
 
-The benefits of strict mode far outweigh the costs, but old habits die hard and the inertia of existing (aka "legacy") code bases is really hard to shift. So sadly, more than 10 years later, strict mode's *optionality* means that it's still not necessarily the default for JS programmers.
+Los beneficios del strict mode superan con creces los costos, pero las viejas costumbres son difíciles de cambiar y la inercia de las bases de código existentes (también conocidas como bases de código "heredadas") es realmente difícil de modificar. Lamentablemente, más de 10 años después, la *opcionabilidad* del strict mode significa que no es necesariamente la configuración predeterminada para los programadores JS.
 
-Why strict mode? Strict mode shouldn't be thought of as a restriction on what you can't do, but rather as a guide to the best way to do things so that the JS engine has the best chance of optimizing and efficiently running the code. Most JS code is worked on by teams of developers, so the *strict*-ness of strict mode (along with tooling like linters!) often helps collaboration on code by avoiding some of the more problematic mistakes that slip by in non-strict mode.
+¿Por qué el strict mode? El strict mode no debería ser considerado como una restricción de lo que no se puede hacer, sino más bien como una guía sobre la mejor manera de hacer las cosas para que el motor JS tenga la mejor oportunidad de optimizar y ejecutar eficientemente el código. La mayoría de los códigos JS son trabajados por equipos de desarrolladores, por lo que la estrictitud del *strict* mode (¡junto con herramientas como linters!) a menudo ayuda en la colaboración en el código al evitar algunos de los errores más problemáticos que se pasan por alto en el modo no estricto.
 
-Most strict mode controls are in the form of *early errors*, meaning errors that aren't strictly syntax errors but are still thrown at compile time (before the code is run). For example, strict mode disallows naming two function parameters the same, and results in an early error. Some other strict mode controls are only observable at runtime, such as how `this` defaults to `undefined` instead of the global object.
+La mayoría de los controles del strict mode están en forma de *errores tempranos*, lo que significa errores que no son estrictamente errores de sintaxis, pero que aún se lanzan en tiempo de compilación (antes de que se ejecute el código). Por ejemplo, el strict mode prohíbe nombrar dos parámetros de función iguales y genera un error temprano. Otros controles del strict mode solo se observan en tiempo de ejecución, como cómo `this` se establece en `undefined` en lugar del objeto global.
 
-Rather than fighting and arguing with strict mode, like a kid who just wants to defy whatever their parents tell them not to do, the best mindset is that strict mode is like a linter reminding you how JS *should* be written to have the highest quality and best chance at performance. If you find yourself feeling handcuffed, trying to work around strict mode, that should be a blaring red warning flag that you need to back up and rethink the whole approach.
+En lugar de luchar y discutir con el strict mode, como un niño que simplemente quiere desafiar lo que le dicen sus padres que no haga, la mejor mentalidad es que el strict mode es como un linter que te recuerda cómo *debería* escribirse JS para tener la mejor calidad y la mejor oportunidad de rendimiento. Si te encuentras sintiéndote limitado, tratando de evitar el strict mode, eso debería ser una señal de advertencia clara de que necesitas retroceder y reconsiderar todo el enfoque.
 
-Strict mode is switched on per file with a special pragma (nothing allowed before it except comments/whitespace):
+El strict mode se activa por archivo con una pragma especial (nada permitido antes de ella excepto comentarios/espacios en blanco):
 
 ```js
-// only whitespace and comments are allowed
-// before the use-strict pragma
+// sólo se permiten espacios en blanco y comentarios
+// antes del uso de use-strict
 "use strict";
-// the rest of the file runs in strict mode
+// el resto del archivo se ejecuta en strict mode
 ```
 
-| WARNING: |
+| ADVERTENCIA: |
 | :--- |
-| Something to be aware of is that even a stray `;` all by itself appearing before the strict mode pragma will render the pragma useless; no errors are thrown because it's valid JS to have a string literal expression in a statement position, but it also will silently *not* turn on strict mode! |
+| Algo importante a tener en cuenta es que incluso un `;` solitario que aparece justo antes de la pragma del strict mode hará que la pragma sea ineficaz; no se lanzarán errores porque es válido tener una expresión literal de cadena en una posición de declaración, ¡pero *tampoco* se activará silenciosamente el strict mode! |
 
-Strict mode can alternatively be turned on per-function scope, with exactly the same rules about its surroundings:
+El strict mode también se puede activar alternativamente por ámbito de función, con exactamente las mismas reglas sobre su entorno:
 
 ```js
 function someOperations() {
-    // whitespace and comments are fine here
+    // Los espacios en blanco y los comentarios están bien aquí
     "use strict";
 
-    // all this code will run in strict mode
+    // todo este código se ejecutará en strict mode
 }
 ```
+De manera interesante, si un archivo tiene activado el strict mode, se prohíben los pragmas de strict mode a nivel de función. Por lo tanto, debes elegir uno u otro.
 
-Interestingly, if a file has strict mode turned on, the function-level strict mode pragmas are disallowed. So you have to pick one or the other.
+La **única** razón válida para utilizar un enfoque por función para el strict mode es cuando estás convirtiendo un archivo de programa existente que no está en strict mode y necesitas realizar los cambios poco a poco con el tiempo. De lo contrario, es mucho mejor activar el strict mode para todo el archivo/programa.
 
-The **only** valid reason to use a per-function approach to strict mode is when you are converting an existing non-strict mode program file and need to make the changes little by little over time. Otherwise, it's vastly better to simply turn strict mode on for the entire file/program.
+Muchos se han preguntado si habrá algún momento en que JS haga del strict mode la opción predeterminada. La respuesta es casi seguramente no. Como discutimos anteriormente en cuanto a la compatibilidad con versiones anteriores, si una actualización del motor de JS comenzara a asumir que el código está en strict mode incluso si no está marcado como tal, es posible que este código se rompa como resultado de los controles del strict mode.
 
-Many have wondered if there would ever be a time when JS made strict mode the default? The answer is, almost certainly not. As we discussed earlier around backwards compatibility, if a JS engine update started assuming code was strict mode even if it's not marked as such, it's possible that this code would break as a result of strict mode's controls.
+Sin embargo, hay algunos factores que reducen el impacto futuro de esta "oscuridad" no predeterminada del strict mode.
 
-However, there are a few factors that reduce the future impact of this non-default "obscurity" of strict mode.
+En primer lugar, prácticamente todo el código transpilado termina en strict mode incluso si el código fuente original no está escrito de esa manera. La mayoría del código JS en producción ha sido transpilado, lo que significa que la mayoría del código JS ya se adhiere al strict mode. Es posible deshacer esa suposición, pero realmente debes esforzarte por hacerlo, por lo que es muy poco probable.
 
-For one, virtually all transpiled code ends up in strict mode even if the original source code isn't written as such. Most JS code in production has been transpiled, so that means most JS is already adhering to strict mode. It's possible to undo that assumption, but you really have to go out of your way to do so, so it's highly unlikely.
+Además, está ocurriendo un cambio importante hacia que más/mayoría del nuevo código JS se escriba utilizando el formato de módulo ES6. Los módulos ES6 asumen el strict mode, por lo que todo el código en dichos archivos se establece automáticamente en el strict mode.
 
-Moreover, a wide shift is happening toward more/most new JS code being written using the ES6 module format. ES6 modules assume strict mode, so all code in such files is automatically defaulted to strict mode.
+En conjunto, el strict mode es en gran medida la opción predeterminada de facto, aunque técnicamente no lo sea.
 
-Taken together, strict mode is largely the de facto default even though technically it's not actually the default.
+## Definido
 
-## Defined
+JS es una implementación del estándar ECMAScript (versión ES2019 en el momento de escribir esto), que está guiado por el comité TC39 y alojado por ECMA. Se ejecuta en navegadores y otros entornos de JS, como Node.js.
 
-JS is an implementation of the ECMAScript standard (version ES2019 as of this writing), which is guided by the TC39 committee and hosted by ECMA. It runs in browsers and other JS environments such as Node.js.
+JS es un lenguaje multiparadigma, lo que significa que la sintaxis y las capacidades permiten a un desarrollador combinar y mezclar (¡y doblar y remodelar!) conceptos de varios paradigmas importantes, como el procedural, orientado a objetos (OO/clases) y funcional (FP).
 
-JS is a multi-paradigm language, meaning the syntax and capabilities allow a developer to mix and match (and bend and reshape!) concepts from various major paradigms, such as procedural, object-oriented (OO/classes), and functional (FP).
+JS es un lenguaje compilado, lo que significa que las herramientas (incluido el motor de JS) procesan y verifican un programa (¡informando de cualquier error!) antes de que se ejecute.
 
-JS is a compiled language, meaning the tools (including the JS engine) process and verify a program (reporting any errors!) before it executes.
-
-With our language now *defined*, let's start getting to know its ins and outs.
+Con nuestro lenguaje ahora *definido*, comencemos a conocer sus detalles y peculiaridades.
 
 [^specApB]: ECMAScript 2019 Language Specification, Appendix B: Additional ECMAScript Features for Web Browsers, https://www.ecma-international.org/ecma-262/10.0/#sec-additional-ecmascript-features-for-web-browsers (la última versión disponible en el momento de escribir esto en enero de 2020)

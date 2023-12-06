@@ -7,3 +7,4 @@ Los libros estarán en formato Markdown para leerse directamente o descargarlos 
 
 * [You Don't Know JS Yet (Tú no conoces JS aún)](./You%20Dont%20Know%20JS%20Yet/README.md)
     - [Get Started (Comienzos)](./You%20Dont%20Know%20JS%20Yet/get-started/README.md)
+* [The C Programming Language](./The%20C%20Programming%20Language/README.md)
