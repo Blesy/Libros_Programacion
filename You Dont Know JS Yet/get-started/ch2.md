@@ -1,57 +1,56 @@
-# You Don't Know JS Yet: Get Started - 2nd Edition
-# Chapter 2: Surveying JS
+# Capítulo 2: Topografía JS
 
-The best way to learn JS is to start writing JS.
+La mejor manera de aprender JS es comenzar a escribir JS.
 
-To do that, you need to know how the language works, and that's what we'll focus on here. Even if you've programmed in other languages before, take your time getting comfortable with JS, and make sure to practice each piece.
+Para hacer eso, necesitas entender cómo funciona el lenguaje, y eso es en lo que nos enfocaremos aquí. Incluso si has programado en otros lenguajes antes, tómate tu tiempo para familiarizarte con JS y asegúrate de practicar cada elemento.
 
-This chapter is not an exhaustive reference on every bit of syntax of the JS language. It's also not intended to be a complete "intro to JS" primer.
+Este capítulo no es una referencia exhaustiva de cada aspecto de la sintaxis del lenguaje JS. Tampoco pretende ser un manual completo de "introducción a JS".
 
-Instead, we're just going to survey some of the major topic areas of the language. Our goal is to get a better *feel* for it, so that we can move forward writing our own programs with more confidence. We'll revisit many of these topics in successively more detail as you go through the rest of this book, and the rest of the series.
+En cambio, simplemente vamos a explorar algunas de las áreas temáticas principales del lenguaje. Nuestro objetivo es obtener una mejor *sensación* por él, para poder avanzar escribiendo nuestros propios programas con más confianza. Volveremos a muchos de estos temas con más detalle a medida que avances en el resto de este libro y de la serie.
 
-Please don't expect this chapter to be a quick read. It's long and there's plenty of detail to chew on. Take your time.
+Por favor, no esperes que este capítulo sea una lectura rápida. Es extenso y hay muchos detalles para analizar. Tómate tu tiempo.
 
 | TIP: |
 | :--- |
-| If you're still getting familiar with JS, I suggest you reserve plenty of extra time to work through this chapter. Take each section and ponder and explore the topic for awhile. Look through existing JS programs and compare what you see in them to the code and explanations (and opinions!) presented here. You will get a lot more out of the rest of the book and series with a solid foundation of JS's *nature*. |
+| Si aún estás familiarizándote con JS, te sugiero que reserves mucho tiempo adicional para trabajar en este capítulo. Tómate cada sección, reflexiona y explora el tema durante un tiempo. Examina programas JS existentes y compara lo que ves en ellos con el código y las explicaciones (¡y opiniones!) presentadas aquí. Obtendrás mucho más del resto del libro y de la serie con una sólida comprensión de la *naturaleza* de JS. |
 
-## Each File is a Program
+## Cada archivo es un programa
 
-Almost every website (web application) you use is comprised of many different JS files (typically with the .js file extension). It's tempting to think of the whole thing (the application) as one program. But JS sees it differently.
+Casi todos los sitios web (aplicaciones web) que utilizas están compuestos por muchos archivos JS diferentes (normalmente con la extensión de archivo .js). Es tentador pensar en todo el conjunto (la aplicación) como un solo programa. Pero JS lo ve de manera diferente.
 
-In JS, each standalone file is its own separate program.
+En JS, cada archivo independiente es su propio programa separado.
 
-The reason this matters is primarily around error handling. Since JS treats files as programs, one file may fail (during parse/compile or execution) and that will not necessarily prevent the next file from being processed. Obviously, if your application depends on five .js files, and one of them fails, the overall application will probably only partially operate, at best. It's important to ensure that each file works properly, and that to whatever extent possible, they handle failure in other files as gracefully as possible.
+La razón por la que esto es importante se relaciona principalmente con el manejo de errores. Dado que JS trata los archivos como programas, un archivo puede fallar (durante el análisis/compilación o la ejecución) y eso no necesariamente evitará que el siguiente archivo se procese. Obviamente, si tu aplicación depende de cinco archivos .js y uno de ellos falla, es probable que la aplicación general solo funcione parcialmente, como máximo. Es importante asegurarse de que cada archivo funcione correctamente y, en la medida de lo posible, manejar los fallos en otros archivos de la manera más elegante posible.
 
-It may surprise you to consider separate .js files as separate JS programs. From the perspective of your usage of an application, it sure seems like one big program. That's because the execution of the application allows these individual *programs* to cooperate and act as one program.
+Puede sorprenderte considerar archivos .js separados como programas JS independientes. Desde la perspectiva de tu uso de una aplicación, parece que es un solo programa grande. Eso se debe a que la ejecución de la aplicación permite que estos *programas* individuales cooperen y actúen como un solo programa.
 
-| NOTE: |
+| NOTA: |
 | :--- |
-| Many projects use build process tools that end up combining separate files from the project into a single file to be delivered to a web page. When this happens, JS treats this single combined file as the entire program. |
+| Muchos proyectos utilizan herramientas de procesamiento de compilación que combinan archivos separados del proyecto en un solo archivo para ser entregado a una página web. Cuando esto sucede, JS trata este único archivo combinado como el programa completo. |
 
-The only way multiple standalone .js files act as a single program is by sharing their state (and access to their public functionality) via the "global scope." They mix together in this global scope namespace, so at runtime they act as a whole.
+La única forma en que varios archivos .js independientes actúan como un solo programa es compartiendo su estado (y acceso a su funcionalidad pública) a través del "ámbito global". Se mezclan en este espacio de nombres de ámbito global, por lo que en tiempo de ejecución actúan como un conjunto.
 
-Since ES6, JS has also supported a module format in addition to the typical standalone JS program format. Modules are also file-based. If a file is loaded via module-loading mechanism such as an `import` statement or a `<script type=module>` tag, all its code is treated as a single module.
+Desde ES6, JS también admite un formato de módulo además del formato típico de programa JS independiente. Los módulos también están basados en archivos. Si un archivo se carga a través de un mecanismo de carga de módulos, como una declaración `import` o una etiqueta `<script type=module>`, todo su código se trata como un solo módulo.
 
-Though you wouldn't typically think about a module—a collection of state and publicly exposed methods to operate on that state—as a standalone program, JS does in fact still treat each module separately. Similar to how "global scope" allows standalone files to mix together at runtime, importing a module into another allows runtime interoperation between them.
+Aunque normalmente no pensarías en un módulo, una colección de estado y métodos expuestos públicamente para operar en ese estado, como un programa independiente, JS trata cada módulo por separado. De manera similar a cómo el "ámbito global" permite que los archivos independientes se mezclen en tiempo de ejecución, la importación de un módulo en otro permite la interacción en tiempo de ejecución entre ellos.
 
-Regardless of which code organization pattern (and loading mechanism) is used for a file (standalone or module), you should still think of each file as its own (mini) program, which may then cooperate with other (mini) programs to perform the functions of your overall application.
+Independientemente del patrón de organización de código (y mecanismo de carga) que se utilice para un archivo (independiente o módulo), aún debes considerar cada archivo como su propio programa (mini), que luego puede cooperar con otros programas (mini) para realizar las funciones de tu aplicación en general.
 
-## Values
+## Valores
 
-The most fundamental unit of information in a program is a value. Values are data. They're how the program maintains state. Values come in two forms in JS: **primitive** and **object**.
+La unidad más fundamental de información en un programa es un valor. Los valores son datos. Son cómo el programa mantiene el estado. Los valores se presentan en dos formas en JS: **primitivos** y **objetos**.
 
-Values are embedded in programs using *literals*:
+Los valores se incorporan en los programas mediante *literales*:
 
 ```js
 greeting("My name is Kyle.");
 ```
 
-In this program, the value `"My name is Kyle."` is a primitive string literal; strings are ordered collections of characters, usually used to represent words and sentences.
+En este programa, el valor `"My name is Kyle."` es un literal primitivo de cadena; las cadenas son colecciones ordenadas de caracteres, generalmente utilizadas para representar palabras y oraciones.
 
-I used the double-quote `"` character to *delimit* (surround, separate, define) the string value. But I could have used the single-quote `'` character as well. The choice of which quote character is entirely stylistic. The important thing, for the sake of code readability and maintainability, is to pick one and to use it consistently throughout the program.
+Usé el carácter de comillas dobles `"` para *delimitar* (encerrar, separar, definir) el valor de la cadena. Pero también podría haber utilizado el carácter de comillas simples `'`. La elección del carácter de comillas es completamente estilística. Lo importante, para la legibilidad y el mantenimiento del código, es elegir uno y usarlo consistentemente en todo el programa.
 
-Another option to delimit a string literal is to use the back-tick `` ` `` character. However, this choice is not merely stylistic; there's a behavioral difference as well. Consider:
+Otra opción para delimitar un literal de cadena es usar el carácter de tilde invertida `` ` ``. Sin embargo, esta elección no es simplemente estilística; también hay una diferencia de comportamiento. Considera:
 
 ```js
 console.log("My name is ${ firstName }.");
@@ -64,20 +63,20 @@ console.log(`My name is ${ firstName }.`);
 // My name is Kyle.
 ```
 
-Assuming this program has already defined a variable `firstName` with the string value `"Kyle"`, the `` ` ``-delimited string then resolves the variable expression (indicated with `${ .. }`) to its current value. This is called **interpolation**.
+Suponiendo que este programa ya ha definido una variable `firstName` con el valor de cadena `"Kyle"`, la cadena delimitada por `` ` `` resuelve la expresión de variable (indicada con `${ .. }`) a su valor actual. Esto se llama **interpolación**.
 
-The back-tick `` ` ``-delimited string can be used without including interpolated expressions, but that defeats the whole purpose of that alternate string literal syntax:
+La cadena delimitada por la tilde invertida `` ` `` se puede usar sin incluir expresiones interpoladas, pero eso va en contra del propósito de esa sintaxis alternativa de literales de cadena:
 
 ```js
 console.log(
-    `Am I confusing you by omitting interpolation?`
+    `¿Te estoy confundiendo al omitir la interpolación?`
 );
-// Am I confusing you by omitting interpolation?
+// ¿Te estoy confundiendo al omitir la interpolación?
 ```
 
-The better approach is to use `"` or `'` (again, pick one and stick to it!) for strings *unless you need* interpolation; reserve `` ` `` only for strings that will include interpolated expressions.
+La mejor manera es usar `"` o `'` (nuevamente, ¡elige uno y quédate con él!) para las cadenas *a menos que necesites* interpolación; reserva `` ` `` solo para cadenas que incluirán expresiones interpoladas.
 
-Other than strings, JS programs often contain other primitive literal values such as booleans and numbers:
+Además de las cadenas, los programas de JS a menudo contienen otros valores literales primitivos como booleanos y números:
 
 ```js
 while (false) {
@@ -85,24 +84,24 @@ while (false) {
 }
 ```
 
-`while` represents a loop type, a way to repeat operations *while* its condition is true.
+`while` representa un tipo de bucle, una forma de repetir operaciones *mientras* su condición sea verdadera.
 
-In this case, the loop will never run (and nothing will be printed), because we used the `false` boolean value as the loop conditional. `true` would have resulted in a loop that keeps going forever, so be careful!
+En este caso, el bucle nunca se ejecutará (y no se imprimirá nada), porque usamos el valor booleano `false` como condición del bucle. `true` habría resultado en un bucle que seguiría ejecutándose para siempre, ¡así que ten cuidado!
 
-The number `3.141592` is, as you may know, an approximation of mathematical PI to the first six digits. Rather than embed such a value, however, you would typically use the predefined `Math.PI` value for that purpose. Another variation on numbers is the `bigint` (big-integer) primitive type, which is used for storing arbitrarily large numbers.
+El número `3.141592` es, como sabrás, una aproximación de PI matemático a las primeras seis cifras. En lugar de incrustar dicho valor, sin embargo, normalmente usarías el valor predefinido `Math.PI` para ese propósito. Otra variante de los números es el tipo primitivo `bigint` (número entero grande), que se utiliza para almacenar números arbitrariamente grandes.
 
-Numbers are most often used in programs for counting steps, such as loop iterations, and accessing information in numeric positions (i.e., an array index). We'll cover arrays/objects in a little bit, but as an example, if there was an array called `names`, we could access the element in its second position like this:
+Los números se utilizan más a menudo en los programas para contar pasos, como las iteraciones de un bucle, y para acceder a la información en posiciones numéricas (por ejemplo, un índice de matriz). Cubriremos arrays/objetos en un momento, pero como ejemplo, si hubiera un array llamado `names`, podríamos acceder al elemento en su segunda posición de esta manera:
 
 ```js
 console.log(`My name is ${ names[1] }.`);
 // My name is Kyle.
 ```
 
-We used `1` for the element in the second position, instead of `2`, because like in most programming languages, JS array indices are 0-based (`0` is the first position).
+Usamos `1` para el elemento en la segunda posición, en lugar de `2`, porque al igual que en la mayoría de los lenguajes de programación, los índices de arrays en JS comienzan en 0 (`0` es la primera posición).
 
-In addition to strings, numbers, and booleans, two other *primitive* values in JS programs are `null` and `undefined`. While there are differences between them (some historic and some contemporary), for the most part both values serve the purpose of indicating *emptiness* (or absence) of a value.
+Además de las cadenas de texto, los números y los booleanos, otros dos valores *primitivos* en los programas de JS son `null` e `undefined`. Aunque hay diferencias entre ellos (algunas históricas y otras contemporáneas), en su mayor parte ambos valores sirven para indicar la *falta* (o ausencia) de un valor.
 
-Many developers prefer to treat them both consistently in this fashion, which is to say that the values are assumed to be indistinguishable. If care is taken, this is often possible. However, it's safest and best to use only `undefined` as the single empty value, even though `null` seems attractive in that it's shorter to type!
+Muchos desarrolladores prefieren tratarlos de manera consistente de esta manera, es decir, asumir que los valores son indistinguibles. Si se tiene cuidado, esto a menudo es posible. Sin embargo, es más seguro y mejor usar solo `undefined` como el único valor vacío, aunque `null` pueda parecer atractivo por ser más corto de escribir.
 
 ```js
 while (value != undefined) {
@@ -110,20 +109,19 @@ while (value != undefined) {
 }
 ```
 
-The final primitive value to be aware of is a symbol, which is a special-purpose value that behaves as a hidden unguessable value. Symbols are almost exclusively used as special keys on objects:
+El último valor primitivo del que debes tener conocimiento es el símbolo, que es un valor de propósito especial que se comporta como un valor oculto e impredecible. Los símbolos se utilizan casi exclusivamente como claves especiales en objetos:
 
 ```js
 hitchhikersGuide[ Symbol("meaning of life") ];
 // 42
 ```
+No encontrarás el uso directo de símbolos muy a menudo en programas JS típicos. Se utilizan principalmente en código de bajo nivel, como en bibliotecas y frameworks.
 
-You won't encounter direct usage of symbols very often in typical JS programs. They're mostly used in low-level code such as in libraries and frameworks.
+### Arrays y Objects
 
-### Arrays And Objects
+Además de los primitivos, el otro tipo de valor en JS es el valor objeto.
 
-Besides primitives, the other value type in JS is an object value.
-
-As mentioned earlier, arrays are a special type of object that's comprised of an ordered and numerically indexed list of data:
+Como se mencionó anteriormente, los arrays son un tipo especial de objeto que está compuesto por una lista ordenada e indexada numéricamente de datos:
 
 ```js
 var names = [ "Frank", "Kyle", "Peter", "Susan" ];
@@ -138,13 +136,13 @@ names[1];
 // Kyle
 ```
 
-JS arrays can hold any value type, either primitive or object (including other arrays). As we'll see toward the end of Chapter 3, even functions are values that can be held in arrays or objects.
+Los arrays de JS pueden contener cualquier tipo de valor, ya sea primitivo u objeto (incluyendo otros arrays). Como veremos hacia el final del Capítulo 3, incluso las funciones son valores que se pueden almacenar en arrays u objetos.
 
-| NOTE: |
+| NOTA: |
 | :--- |
-| Functions, like arrays, are a special kind (aka, sub-type) of object. We'll cover functions in more detail in a bit. |
+| Las funciones, al igual que los arrays, son un tipo especial (también conocido como subtipo) de objeto. Cubriremos las funciones con más detalle en un momento. |
 
-Objects are more general: an unordered, keyed collection of any various values. In other words, you access the element by a string location name (aka "key" or "property") rather than by its numeric position (as with arrays). For example:
+Los objetos son más generales: una colección desordenada y con claves de varios valores. En otras palabras, accedes al elemento mediante un nombre de ubicación de cadena (también conocido como "clave" o "propiedad") en lugar de por su posición numérica (como en los arrays). Por ejemplo:
 
 ```js
 var me = {
@@ -157,11 +155,11 @@ var me = {
 console.log(`My name is ${ me.first }.`);
 ```
 
-Here, `me` represents an object, and `first` represents the name of a location of information in that object (value collection). Another syntax option that accesses information in an object by its property/key uses the square-brackets `[ ]`, such as  `me["first"]`.
+Aquí, `me` representa un objeto, y `first` representa el nombre de una ubicación de información en ese objeto (colección de valores). Otra opción de sintaxis que accede a la información en un objeto por su propiedad/clave utiliza corchetes cuadrados `[ ]`, como `me["first"]`.
 
-### Value Type Determination
+### Determinación del tipo de valor
 
-For distinguishing values, the `typeof` operator tells you its built-in type, if primitive, or `"object"` otherwise:
+Para distinguir valores, el operador `typeof` te dice su tipo incorporado, si es primitivo, o `"object"` en caso contrario:
 
 ```js
 typeof 42;                  // "number"
@@ -174,13 +172,13 @@ typeof [1,2,3];             // "object"
 typeof function hello(){};  // "function"
 ```
 
-| WARNING: |
+| ADVERTENCIA: |
 | :--- |
-| `typeof null` unfortunately returns `"object"` instead of the expected `"null"`. Also, `typeof` returns the specific `"function"` for functions, but not the expected `"array"` for arrays. |
+| `typeof null` desafortunadamente devuelve `"object"` en lugar del esperado `"null"`. Además, `typeof` devuelve el específico `"function"` para funciones, pero no el esperado `"array"` para arrays. |
 
-Converting from one value type to another, such as from string to number, is referred to in JS as "coercion." We'll cover this in more detail later in this chapter.
+La conversión de un tipo de valor a otro, como de cadena a número, se denomina "coerción" en JS. Cubriremos esto con más detalle más adelante en este capítulo.
 
-Primitive values and object values behave differently when they're assigned or passed around. We'll cover these details in Appendix A, "Values vs References."
+Los valores primitivos y los valores de objeto se comportan de manera diferente cuando se asignan o se pasan. Cubriremos estos detalles en el Apéndice A, "Valores vs Referencias".
 
 ## Declaring and Using Variables
 
