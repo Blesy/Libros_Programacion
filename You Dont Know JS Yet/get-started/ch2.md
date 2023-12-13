@@ -10,7 +10,7 @@ En cambio, simplemente vamos a explorar algunas de las áreas temáticas princip
 
 Por favor, no esperes que este capítulo sea una lectura rápida. Es extenso y hay muchos detalles para analizar. Tómate tu tiempo.
 
-| TIP: |
+| CONSEJO: |
 | :--- |
 | Si aún estás familiarizándote con JS, te sugiero que reserves mucho tiempo adicional para trabajar en este capítulo. Tómate cada sección, reflexiona y explora el tema durante un tiempo. Examina programas JS existentes y compara lo que ves en ellos con el código y las explicaciones (¡y opiniones!) presentadas aquí. Obtendrás mucho más del resto del libro y de la serie con una sólida comprensión de la *naturaleza* de JS. |
 
@@ -180,31 +180,32 @@ La conversión de un tipo de valor a otro, como de cadena a número, se denomina
 
 Los valores primitivos y los valores de objeto se comportan de manera diferente cuando se asignan o se pasan. Cubriremos estos detalles en el Apéndice A, "Valores vs Referencias".
 
-## Declaring and Using Variables
+## Declaración y uso de variables
 
-To be explicit about something that may not have been obvious in the previous section: in JS programs, values can either appear as literal values (as many of the preceding examples illustrate), or they can be held in variables; think of variables as just containers for values.
 
-Variables have to be declared (created) to be used. There are various syntax forms that declare variables (aka, "identifiers"), and each form has different implied behaviors.
+Para ser explícito acerca de algo que quizás no fue evidente en la sección anterior: en los programas de JS, los valores pueden aparecer como valores literales (como muchos de los ejemplos anteriores ilustran), o pueden estar contenidos en variables; piensa en las variables como simples contenedores para valores.
 
-For example, consider the `var` statement:
+Las variables deben declararse (crearse) antes de ser utilizadas. Hay varias formas de sintaxis que declaran variables (también conocidas como "identificadores"), y cada forma tiene comportamientos implícitos diferentes.
+
+Por ejemplo, considera la declaración `var`:
 
 ```js
 var myName = "Kyle";
 var age;
 ```
 
-The `var` keyword declares a variable to be used in that part of the program, and optionally allows an initial assignment of a value.
+La palabra clave `var` declara una variable para ser utilizada en esa parte del programa y opcionalmente permite una asignación inicial de un valor.
 
-Another similar keyword is `let`:
+Otra palabra clave similar es `let`:
 
 ```js
 let myName = "Kyle";
 let age;
 ```
 
-The `let` keyword has some differences to `var`, with the most obvious being that `let` allows a more limited access to the variable than `var`. This is called "block scoping" as opposed to regular or function scoping.
+La palabra clave `let` tiene algunas diferencias con `var`, siendo la más evidente que `let` permite un acceso más limitado a la variable que `var`. Esto se llama "block scoping" (ámbito de bloque) en lugar de ámbito regular o de función.
 
-Consider:
+Considera:
 
 ```js
 var adult = true;
@@ -222,19 +223,19 @@ console.log(age);
 // Error!
 ```
 
-The attempt to access `age` outside of the `if` statement results in an error, because `age` was block-scoped to the `if`, whereas `myName` was not.
+El intento de acceder a `age` fuera de la declaración `if` resulta en un error porque `age` tiene un ámbito de bloque limitado al `if`, mientras que `myName` no lo tiene.
 
-Block-scoping is very useful for limiting how widespread variable declarations are in our programs, which helps prevent accidental overlap of their names.
+El ámbito de bloque es muy útil para limitar la extensión de las declaraciones de variables en nuestros programas, lo que ayuda a evitar la superposición accidental de sus nombres.
 
-But `var` is still useful in that it communicates "this variable will be seen by a wider scope (of the whole function)". Both declaration forms can be appropriate in any given part of a program, depending on the circumstances.
+Pero `var` aún es útil porque comunica "esta variable será vista por un ámbito más amplio (de toda la función)". Ambas formas de declaración pueden ser apropiadas en cualquier parte de un programa, según las circunstancias.
 
-| NOTE: |
+| NOTA: |
 | :--- |
-| It's very common to suggest that `var` should be avoided in favor of `let` (or `const`!), generally because of perceived confusion over how the scoping behavior of `var` has worked since the beginning of JS. I believe this to be overly restrictive advice and ultimately unhelpful. It's assuming you are unable to learn and use a feature properly in combination with other features. I believe you *can* and *should* learn any features available, and use them where appropriate! |
+| Es muy común sugerir que se evite `var` a favor de `let` (¡o `const`!), generalmente debido a la percepción de confusión sobre cómo ha funcionado el comportamiento de ámbito de `var` desde el principio de JS. Creo que este consejo es demasiado restrictivo y, en última instancia, poco útil. Está asumiendo que no puedes aprender y usar una característica correctamente en combinación con otras características. ¡Creo que *puedes* y *debes* aprender todas las características disponibles y usarlas donde sea apropiado! |
 
-A third declaration form is `const`. It's like `let` but has an additional limitation that it must be given a value at the moment it's declared, and cannot be re-assigned a different value later.
+Una tercera forma de declaración es `const`. Es similar a `let` pero tiene una limitación adicional: debe recibir un valor en el momento de su declaración y no se le puede asignar un valor diferente más tarde.
 
-Consider:
+Considera:
 
 ```js
 const myBirthday = true;
@@ -246,9 +247,9 @@ if (myBirthday) {
 }
 ```
 
-The `myBirthday` constant is not allowed to be re-assigned.
+La constante `myBirthday` no se permite volver a asignarse.
 
-`const` declared variables are not "unchangeable", they just cannot be re-assigned. It's ill-advised to use `const` with object values, because those values can still be changed even though the variable can't be re-assigned. This leads to potential confusion down the line, so I think it's wise to avoid situations like:
+Las variables declaradas con `const` no son "inmutables", simplemente no se les puede volver a asignar. No se recomienda usar `const` con valores de objetos, porque esos valores aún se pueden cambiar aunque la variable no pueda volver a asignarse. Esto lleva a posibles confusiones más adelante, por lo que creo que es prudente evitar situaciones como:
 
 ```js
 const actors = [
@@ -259,13 +260,13 @@ actors[2] = "Tom Cruise";   // OK :(
 actors = [];                // Error!
 ```
 
-The best semantic use of a `const` is when you have a simple primitive value that you want to give a useful name to, such as using `myBirthday` instead of `true`. This makes programs easier to read.
+El mejor uso semántico de un `const` es cuando tiene un valor primitivo simple al que desea darle un nombre útil, como usar `myBirthday` en lugar de `true`. Esto hace que los programas sean más fáciles de leer.
 
-| TIP: |
+| CONSEJO: |
 | :--- |
-| If you stick to using `const` only with primitive values, you avoid any confusion of re-assignment (not allowed) vs. mutation (allowed)! That's the safest and best way to use `const`. |
+| Si te limitas a usar `const` solo con valores primitivos, evitas cualquier confusión entre la reasignación (no permitida) y la mutación (permitida). ¡Esa es la forma más segura y mejor de usar `const`! |
 
-Besides `var` / `let` / `const`, there are other syntactic forms that declare identifiers (variables) in various scopes. For example:
+Además de `var` / `let` / `const`, hay otras formas sintácticas que declaran identificadores (variables) en varios ámbitos. Por ejemplo:
 
 ```js
 function hello(myName) {
@@ -276,9 +277,9 @@ hello("Kyle");
 // Hello, Kyle.
 ```
 
-The identifier `hello` is created in the outer scope, and it's also automatically associated so that it references the function. But the named parameter `myName` is created only inside the function, and thus is only accessible inside that function's scope. `hello` and `myName` generally behave as `var`-declared.
+El identificador `hello` se crea en el ámbito externo, y también se asocia automáticamente para que haga referencia a la función. Pero el parámetro con nombre `myName` se crea solo dentro de la función y, por lo tanto, solo es accesible dentro del ámbito de esa función. `hello` y `myName` generalmente se comportan como si fueran declarados con `var`.
 
-Another syntax that declares a variable is a `catch` clause:
+Otra sintaxis que declara una variable es una cláusula `catch`:
 
 ```js
 try {
@@ -289,15 +290,15 @@ catch (err) {
 }
 ```
 
-The `err` is a block-scoped variable that exists only inside the `catch` clause, as if it had been declared with `let`.
+La variable `err` es una variable con ámbito de bloque que existe solo dentro de la cláusula `catch`, como si hubiera sido declarada con `let`.
 
 ## Functions
 
-The word "function" has a variety of meanings in programming. For example, in the world of Functional Programming, "function" has a precise mathematical definition and implies a strict set of rules to abide by.
+La palabra "function" tiene una variedad de significados en programación. Por ejemplo, en el mundo de la Programación Funcional, "function" tiene una definición matemática precisa e implica un conjunto estricto de reglas a seguir.
 
-In JS, we should consider "function" to take the broader meaning of another related term: "procedure." A procedure is a collection of statements that can be invoked one or more times, may be provided some inputs, and may give back one or more outputs.
+En JS, deberíamos considerar "function" con el significado más amplio de otro término relacionado: "procedure" (procedimiento). Un procedimiento es una colección de declaraciones que se pueden invocar una o más veces, puede recibir algunos inputs y puede devolver uno o más outputs.
 
-From the early days of JS, function definition looked like:
+Desde los primeros días de JS, la definición de función se veía así:
 
 ```js
 function awesomeFunction(coolThings) {
@@ -306,9 +307,9 @@ function awesomeFunction(coolThings) {
 }
 ```
 
-This is called a function declaration because it appears as a statement by itself, not as an expression in another statement. The association between the identifier `awesomeFunction` and the function value happens during the compile phase of the code, before that code is executed.
+Esto se llama una declaración de función porque aparece como una declaración por sí misma, no como una expresión en otra declaración. La asociación entre el identificador `awesomeFunction` y el valor de la función ocurre durante la fase de compilación del código, antes de que ese código se ejecute.
 
-In contrast to a function declaration statement, a function expression can be defined and assigned like this:
+En contraste con una declaración de función, una expresión de función se puede definir y asignar de la siguiente manera:
 
 ```js
 // let awesomeFunction = ..
@@ -319,11 +320,11 @@ var awesomeFunction = function(coolThings) {
 };
 ```
 
-This function is an expression that is assigned to the variable `awesomeFunction`. Different from the function declaration form, a function expression is not associated with its identifier until that statement during runtime.
+Esta función es una expresión que se asigna a la variable `awesomeFunction`. A diferencia de la forma de declaración de función, una expresión de función no se asocia con su identificador hasta esa declaración durante el tiempo de ejecución.
 
-It's extremely important to note that in JS, functions are values that can be assigned (as shown in this snippet) and passed around. In fact, JS functions are a special type of the object value type. Not all languages treat functions as values, but it's essential for a language to support the functional programming pattern, as JS does.
+Es extremadamente importante señalar que en JS, las funciones son valores que se pueden asignar (como se muestra en este fragmento) y pasar alrededor. De hecho, las funciones de JS son un tipo especial del tipo de valor objeto. No todos los lenguajes tratan las funciones como valores, pero es esencial que un lenguaje admita el patrón de programación funcional, como lo hace JS.
 
-JS functions can receive parameter input:
+Las funciones de JS pueden recibir parámetros de entrada:
 
 ```js
 function greeting(myName) {
@@ -333,9 +334,9 @@ function greeting(myName) {
 greeting("Kyle");   // Hello, Kyle!
 ```
 
-In this snippet, `myName` is called a parameter, which acts as a local variable inside the function. Functions can be defined to receive any number of parameters, from none upward, as you see fit. Each parameter is assigned the argument value that you pass in that position (`"Kyle"`, here) of the call.
+En este fragmento, `myName` se llama un parámetro, que actúa como una variable local dentro de la función. Las funciones pueden definirse para recibir cualquier cantidad de parámetros, desde ninguno hacia arriba, según lo consideres apropiado. A cada parámetro se le asigna el valor del argumento que pases en esa posición (`"Kyle"`, aquí) de la llamada.
 
-Functions also can return values using the `return` keyword:
+Las funciones también pueden devolver valores usando la palabra clave `return`:
 
 ```js
 function greeting(myName) {
@@ -347,9 +348,9 @@ var msg = greeting("Kyle");
 console.log(msg);   // Hello, Kyle!
 ```
 
-You can only `return` a single value, but if you have more values to return, you can wrap them up into a single object/array.
+Solo puedes `return` un único valor, pero si tienes más valores para devolver, puedes agruparlos en un solo objeto o matriz.
 
-Since functions are values, they can be assigned as properties on objects:
+Dado que las funciones son valores, se pueden asignar como propiedades en objetos:
 
 ```js
 var whatToSay = {
@@ -368,25 +369,25 @@ whatToSay.greeting();
 // Hello!
 ```
 
-In this snippet, references to three functions (`greeting()`, `question()`, and `answer()`) are included in the object held by `whatToSay`. Each function can be called by accessing the property to retrieve the function reference value. Compare this straightforward style of defining functions on an object to the more sophisticated `class` syntax discussed later in this chapter.
+En este fragmento, se incluyen referencias a tres funciones (`greeting()`, `question()` y `answer()`) en el objeto contenido por `whatToSay`. Cada función se puede llamar accediendo a la propiedad para recuperar el valor de referencia de la función. Compara este estilo directo de definir funciones en un objeto con la sintaxis más sofisticada de `class` que se discute más adelante en este capítulo.
 
-There are many varied forms that `function`s take in JS. We dig into these variations in Appendix A, "So Many Function Forms."
+Existen muchas formas variadas que pueden tener las funciones en JS. Exploraremos estas variaciones en el Apéndice A, "Tantas Formas de Funciones".
 
-## Comparisons
+## Comparaciones
 
-Making decisions in programs requires comparing values to determine their identity and relationship to each other. JS has several mechanisms to enable value comparison, so let's take a closer look at them.
+Tomar decisiones en los programas requiere comparar valores para determinar su identidad y relación entre sí. JS tiene varios mecanismos para permitir la comparación de valores, así que echemos un vistazo más de cerca a ellos.
 
 ### Equal...ish
 
-The most common comparison in JS programs asks the question, "Is this X value *the same as* that Y value?" What exactly does "the same as" really mean to JS, though?
+La comparación más común en los programas de JS hace la pregunta: "¿Este valor X es *igual que* ese valor Y?" ¿Qué significa realmente "igual que" para JS?
 
-For ergonomic and historical reasons, the meaning is more complicated than the obvious *exact identity* sort of matching. Sometimes an equality comparison intends *exact* matching, but other times the desired comparison is a bit broader, allowing *closely similar* or *interchangeable* matching. In other words, we must be aware of the nuanced differences between an **equality** comparison and an **equivalence** comparison.
+Sin embargo, por razones ergonómicas e históricas, el significado es más complicado que el obvio tipo de coincidencia de *identidad exacta*. A veces, una comparación de igualdad pretende coincidencia *exacta*, pero otras veces la comparación deseada es un poco más amplia, permitiendo coincidencias *cercanamente similares* o *intercambiables*. En otras palabras, debemos ser conscientes de las diferencias matizadas entre una comparación de **igualdad** y una de **equivalencia**.
 
-If you've spent any time working with and reading about JS, you've certainly seen the so-called "triple-equals" `===` operator, also described as the "strict equality" operator. That seems rather straightforward, right? Surely, "strict" means strict, as in narrow and *exact*.
+Si has pasado algún tiempo trabajando y leyendo sobre JS, seguramente has visto el llamado operador "triple igual" `===`, también conocido como el operador de "igualdad estricta". Eso parece bastante sencillo, ¿verdad? Seguramente, "estricto" significa estricto, como en estrecho y *exacto*.
 
-Not *exact*ly.
+No exactamente.
 
-Yes, most values participating in an `===` equality comparison will fit with that *exact same* intuition. Consider some examples:
+Sí, la mayoría de los valores que participan en una comparación de igualdad `===` se ajustarán a esa intuición *exactamente la misma*. Considera algunos ejemplos:
 
 ```js
 3 === 3.0;              // true
@@ -402,24 +403,24 @@ true === 1;             // false
 null === undefined;     // false
 ```
 
-| NOTE: |
+| NOTA: |
 | :--- |
-| Another way `===`'s equality comparison is often described is, "checking both the value and the type". In several of the examples we've looked at so far, like `42 === "42"`, the *type* of both values (number, string, etc.) does seem to be the distinguishing factor. There's more to it than that, though. **All** value comparisons in JS consider the type of the values being compared, not *just* the `===` operator. Specifically, `===` disallows any sort of type conversion (aka, "coercion") in its comparison, where other JS comparisons *do* allow coercion. |
+| Otra forma en que a menudo se describe la comparación de igualdad de `===` es "verificar tanto el valor como el tipo". En varios de los ejemplos que hemos visto hasta ahora, como `42 === "42"`, el *tipo* de ambos valores (número, cadena, etc.) parece ser el factor distintivo. Sin embargo, hay más que eso. **Todas** las comparaciones de valores en JS consideran el tipo de los valores que se están comparando, no *solo* el operador `===`. Específicamente, `===` prohíbe cualquier tipo de conversión de tipo (también conocida como "coerción") en su comparación, mientras que otras comparaciones en JS *sí* permiten la coerción. |
 
-But the `===` operator does have some nuance to it, a fact many JS developers gloss over, to their detriment. The `===` operator is designed to *lie* in two cases of special values: `NaN` and `-0`. Consider:
+Pero el operador `===` tiene cierta complejidad, un hecho que muchos desarrolladores de JS pasan por alto, en detrimento propio. El operador `===` está diseñado para *mentir* en dos casos de valores especiales: `NaN` y `-0`. Considera:
 
 ```js
 NaN === NaN;            // false
 0 === -0;               // true
 ```
 
-In the case of `NaN`, the `===` operator *lies* and says that an occurrence of `NaN` is not equal to another `NaN`. In the case of `-0` (yes, this is a real, distinct value you can use intentionally in your programs!), the `===` operator *lies* and says it's equal to the regular `0` value.
+En el caso de `NaN`, el operador `===` *miente* y dice que una ocurrencia de `NaN` no es igual a otro `NaN`. En el caso de `-0` (sí, este es un valor real y distinto que puedes usar intencionalmente en tus programas), el operador `===` *miente* y dice que es igual al valor regular `0`.
 
-Since the *lying* about such comparisons can be bothersome, it's best to avoid using `===` for them. For `NaN` comparisons, use the `Number.isNaN(..)` utility, which does not *lie*. For `-0` comparison, use the `Object.is(..)` utility, which also does not *lie*. `Object.is(..)` can also be used for non-*lying* `NaN` checks, if you prefer. Humorously, you could think of `Object.is(..)` as the "quadruple-equals" `====`, the really-really-strict comparison!
+Dado que *mentir* acerca de tales comparaciones puede resultar molesto, es mejor evitar el uso de `===` para ellas. Para comparaciones de `NaN`, utiliza la utilidad `Number.isNaN(..)`, que no *miente*. Para la comparación de `-0`, utiliza la utilidad `Object.is(..)`, que también no *miente*. `Object.is(..)` también se puede utilizar para comprobaciones de `NaN` sin *mentir*, si lo prefieres. Irónicamente, podrías pensar en `Object.is(..)` como el "cuádruple igual" `====,` ¡la comparación realmente realmente estricta!
 
-There are deeper historical and technical reasons for these *lies*, but that doesn't change the fact that `===` is not actually *strictly exactly equal* comparison, in the *strictest* sense.
+Hay razones históricas y técnicas más profundas para estos *engaños*, pero eso no cambia el hecho de que `===` no es realmente una comparación *estrictamente exactamente igual* en el sentido *más estricto*.
 
-The story gets even more complicated when we consider comparisons of object values (non-primitives). Consider:
+La historia se vuelve aún más complicada cuando consideramos comparaciones de valores de objeto (no primitivos). Considera:
 
 ```js
 [ 1, 2, 3 ] === [ 1, 2, 3 ];    // false
@@ -427,20 +428,20 @@ The story gets even more complicated when we consider comparisons of object valu
 (x => x * 2) === (x => x * 2)   // false
 ```
 
-What's going on here?
+¿Qué está pasando aquí?
 
-It may seem reasonable to assume that an equality check considers the *nature* or *contents* of the value; after all, `42 === 42` considers the actual `42` value and compares it. But when it comes to objects, a content-aware comparison is generally referred to as "structural equality."
+Puede parecer razonable asumir que una comprobación de igualdad considera la *naturaleza* o *contenido* del valor; después de todo, `42 === 42` considera el valor `42` real y lo compara. Pero cuando se trata de objetos, una comparación consciente del contenido se denomina generalmente "igualdad estructural".
 
-JS does not define `===` as *structural equality* for object values. Instead, `===` uses *identity equality* for object values.
+JS no define `===` como *igualdad estructural* para valores de objeto. En cambio, `===` utiliza *igualdad por identidad* para valores de objeto.
 
-In JS, all object values are held by reference (see "Values vs References" in Appendix A), are assigned and passed by reference-copy, **and** to our current discussion, are compared by reference (identity) equality. Consider:
+En JS, todos los valores de objeto se mantienen por referencia (consulta "Valores vs Referencias" en el Apéndice A), se asignan y pasan por referencia-copia, **y** para nuestra discusión actual, se comparan por igualdad de referencia (identidad). Considera:
 
 ```js
 var x = [ 1, 2, 3 ];
 
-// assignment is by reference-copy, so
-// y references the *same* array as x,
-// not another copy of it.
+// la asignación es por copia de referencia, así que
+// y hace referencia al *mismo* array que x,
+// no a otra copia de él.
 var y = x;
 
 y === x;              // true
@@ -448,44 +449,44 @@ y === [ 1, 2, 3 ];    // false
 x === [ 1, 2, 3 ];    // false
 ```
 
-In this snippet, `y === x` is true because both variables hold a reference to the same initial array. But the `=== [1,2,3]` comparisons both fail because `y` and `x`, respectively, are being compared to new *different* arrays `[1,2,3]`. The array structure and contents don't matter in this comparison, only the **reference identity**.
+En este fragmento, `y === x` es verdadero porque ambas variables tienen una referencia al mismo array inicial. Pero las comparaciones `=== [1,2,3]` fallan porque `y` y `x`, respectivamente, se comparan con nuevos *diferentes* arrays `[1,2,3]`. La estructura y el contenido del array no importan en esta comparación, solo la **identidad de la referencia**.
 
-JS does not provide a mechanism for structural equality comparison of object values, only reference identity comparison. To do structural equality comparison, you'll need to implement the checks yourself.
+JS no proporciona un mecanismo para la comparación de igualdad estructural de valores de objeto, solo la comparación de identidad de referencia. Para hacer una comparación de igualdad estructural, deberás implementar las verificaciones tú mismo.
 
-But beware, it's more complicated than you'll assume. For example, how might you determine if two function references are "structurally equivalent"? Even stringifying to compare their source code text wouldn't take into account things like closure. JS doesn't provide structural equality comparison because it's almost intractable to handle all the corner cases!
+Pero ten cuidado, es más complicado de lo que asumirás. Por ejemplo, ¿cómo determinarías si dos referencias a funciones son "estructuralmente equivalentes"? Incluso convertir a cadena para comparar su código fuente no tendría en cuenta cosas como el cierre. JS no proporciona una comparación de igualdad estructural porque es casi inabordable manejar todos los casos particulares.
 
-### Coercive Comparisons
+### Comparaciones coercitivas
 
-Coercion means a value of one type being converted to its respective representation in another type (to whatever extent possible). As we'll discuss in Chapter 4, coercion is a core pillar of the JS language, not some optional feature that can reasonably be avoided.
+La coerción significa que un valor de un tipo se convierte en su representación respectiva en otro tipo (en la medida de lo posible). Como discutiremos en el Capítulo 4, la coerción es un pilar fundamental del lenguaje JS, no alguna característica opcional que se pueda evitar razonablemente.
 
-But where coercion meets comparison operators (like equality), confusion and frustration unfortunately crop up more often than not.
+Pero cuando la coerción se encuentra con operadores de comparación (como la igualdad), la confusión y la frustración desafortunadamente surgen con más frecuencia de la deseada.
 
-Few JS features draw more ire in the broader JS community than the `==` operator, generally referred to as the "loose equality" operator. The majority of all writing and public discourse on JS condemns this operator as poorly designed and dangerous/bug-ridden when used in JS programs. Even the creator of the language himself, Brendan Eich, has lamented how it was designed as a big mistake.
+Pocos aspectos de JS generan más críticas en la comunidad JS en general que el operador `==`, generalmente conocido como el operador de "igualdad laxa". La mayoría de los escritos y el discurso público sobre JS condenan este operador como mal diseñado y peligroso o lleno de errores cuando se usa en programas de JS. Incluso el creador del lenguaje, Brendan Eich, ha lamentado cómo se diseñó como un gran error.
 
-From what I can tell, most of this frustration comes from a pretty short list of confusing corner cases, but a deeper problem is the extremely widespread misconception that it performs its comparisons without considering the types of its compared values.
+Según lo que puedo decir, la mayor parte de esta frustración proviene de una lista bastante corta de casos confusos, pero un problema más profundo es la concepción extremadamente extendida de que realiza sus comparaciones sin considerar los tipos de los valores que compara.
 
-The `==` operator performs an equality comparison similarly to how the `===` performs it. In fact, both operators consider the type of the values being compared. And if the comparison is between the same value type, both `==` and `===` **do exactly the same thing, no difference whatsoever.**
+El operador == realiza una comparación de igualdad de manera similar a como lo hace `===`. De hecho, ambos operadores consideran el tipo de los valores que se están comparando. Y si la comparación es entre el mismo tipo de valor, tanto `==` como `===` **hacen exactamente lo mismo, ninguna diferencia en absoluto**.
 
-If the value types being compared are different, the `==` differs from `===` in that it allows coercion before the comparison. In other words, they both want to compare values of like types, but `==` allows type conversions *first*, and once the types have been converted to be the same on both sides, then `==` does the same thing as `===`. Instead of "loose equality," the `==` operator should be described as "coercive equality."
+Si los tipos de valor que se están comparando son diferentes, el `==` difiere de `===` en que permite la coerción antes de la comparación. En otras palabras, ambos quieren comparar valores del mismo tipo, pero `==` permite conversiones de tipo *primero*, y una vez que los tipos se han convertido para que sean iguales en ambos lados, entonces `==` hace lo mismo que `===`. En lugar de "igualdad laxa", el operador `==` debería describirse como "igualdad coercitiva".
 
-Consider:
+Considera:
 
 ```js
 42 == "42";             // true
 1 == true;              // true
 ```
 
-In both comparisons, the value types are different, so the `==` causes the non-number values (`"42"` and `true`) to be converted to numbers (`42` and `1`, respectively) before the comparisons are made.
+En ambas comparaciones, los tipos de valor son diferentes, por lo que el `==` hace que los valores no numéricos (`"42"` y `true`) se conviertan a números (`42` y `1`, respectivamente) antes de realizar las comparaciones.
 
-Just being aware of this nature of `==`—that it prefers primitive numeric comparisons—helps you avoid most of the troublesome corner cases, such as staying away from a gotchas like `"" == 0` or `0 == false`.
+Ser consciente de esta naturaleza de `==`—que prefiere comparaciones numéricas primitivas—te ayuda a evitar la mayoría de los casos problemáticos, como alejarte de situaciones confusas como `"" == 0` o `0 == false`.
 
-You may be thinking, "Oh, well, I will just always avoid any coercive equality comparison (using `===` instead) to avoid those corner cases"! Eh, sorry, that's not quite as likely as you would hope.
+Puede que estés pensando, "Bueno, simplemente evitaré cualquier comparación de igualdad coercitiva (usando `===` en su lugar) para evitar esos casos especiales". Eh, lo siento, no es tan probable como esperarías.
 
-There's a pretty good chance that you'll use relational comparison operators like `<`, `>` (and even `<=` and `>=`).
+Hay una buena probabilidad de que utilices operadores de comparación relacional como `<`, `>` (e incluso `<=` y `>=`).
 
-Just like `==`, these operators will perform as if they're "strict" if the types being relationally compared already match, but they'll allow coercion first (generally, to numbers) if the types differ.
+Al igual que `==`, estos operadores se comportarán como "estrictos" si los tipos que se están comparando relacionalmente ya coinciden, pero permitirán la coerción primero (generalmente, a números) si los tipos difieren.
 
-Consider:
+Considera:
 
 ```js
 var arr = [ "1", "10", "100", "1000" ];
@@ -494,9 +495,9 @@ for (let i = 0; i < arr.length && arr[i] < 500; i++) {
 }
 ```
 
-The `i < arr.length` comparison is "safe" from coercion because `i` and `arr.length` are always numbers. The `arr[i] < 500` invokes coercion, though, because the `arr[i]` values are all strings. Those comparisons thus become `1 < 500`, `10 < 500`, `100 < 500`, and `1000 < 500`. Since that fourth one is false, the loop stops after its third iteration.
+La comparación `i < arr.length` es "segura" contra la coerción porque `i` y `arr.length` siempre son números. Sin embargo, la comparación `arr[i] < 500` invoca la coerción, ya que los valores de `arr[i]` son todos cadenas. Estas comparaciones se convierten en `1 < 500`, `10 < 500`, `100 < 500` y `1000 < 500`. Dado que esta última es falsa, el bucle se detiene después de su tercera iteración.
 
-These relational operators typically use numeric comparisons, except in the case where **both** values being compared are already strings; in this case, they use alphabetical (dictionary-like) comparison of the strings:
+Estos operadores relacionales suelen utilizar comparaciones numéricas, excepto en el caso en que **ambos** valores que se están comparando ya son cadenas; en este caso, utilizan la comparación alfabética (similar a un diccionario) de las cadenas:
 
 ```js
 var x = "10";
@@ -505,27 +506,27 @@ var y = "9";
 x < y;      // true, watch out!
 ```
 
-There's no way to get these relational operators to avoid coercion, other than to just never use mismatched types in the comparisons. That's perhaps admirable as a goal, but it's still pretty likely you're going to run into a case where the types *may* differ.
+No hay forma de evitar la coerción con estos operadores relacionales, aparte de simplemente no usar tipos incompatibles en las comparaciones. Eso puede ser loable como objetivo, pero aún es bastante probable que te encuentres con un caso en el que los tipos *puedan* diferir.
 
-The wiser approach is not to avoid coercive comparisons, but to embrace and learn their ins and outs.
+La estrategia más sabia no es evitar las comparaciones coercitivas, sino abrazarlas y aprender sus pormenores.
 
-Coercive comparisons crop up in other places in JS, such as conditionals (`if`, etc.), which we'll revisit in Appendix A, "Coercive Conditional Comparison."
+Las comparaciones coercitivas surgen en otros lugares en JS, como en las condicionales (`if`, etc.), que volveremos a visitar en el Apéndice A, "Comparación Condicional Coercitiva".
 
-## How We Organize in JS
+## Cómo nos organizamos en JS
 
-Two major patterns for organizing code (data and behavior) are used broadly across the JS ecosystem: classes and modules. These patterns are not mutually exclusive; many programs can and do use both. Other programs will stick with just one pattern, or even neither!
+Dos patrones principales para organizar código (datos y comportamiento) se utilizan ampliamente en todo el ecosistema de JS: clases y módulos. Estos patrones no son mutuamente excluyentes; muchos programas pueden y de hecho utilizan ambos. Otros programas se limitarán a usar solo un patrón, o incluso ninguno.
 
-In some respects, these patterns are very different. But interestingly, in other ways, they're just different sides of the same coin. Being proficient in JS requires understanding both patterns and where they are appropriate (and not!).
+En algunos aspectos, estos patrones son muy diferentes. Pero curiosamente, en otros aspectos, son simplemente diferentes caras de la misma moneda. Ser competente en JS requiere comprender ambos patrones y dónde son apropiados (¡y dónde no!).
 
 ### Classes
 
-The terms "object-oriented," "class-oriented," and "classes" are all very loaded full of detail and nuance; they're not universal in definition.
+Los términos "orientado a objetos", "orientado a clases" y "clases" están cargados de detalles y matices; no tienen una definición universal.
 
-We will use a common and somewhat traditional definition here, the one most likely familiar to those with backgrounds in "object-oriented" languages like C++ and Java.
+Utilizaremos una definición común y algo tradicional aquí, la que es más probable que sea familiar para aquellos con antecedentes en lenguajes "orientados a objetos" como C++ y Java.
 
-A class in a program is a definition of a "type" of custom data structure that includes both data and behaviors that operate on that data. Classes define how such a data structure works, but classes are not themselves concrete values. To get a concrete value that you can use in the program, a class must be *instantiated* (with the `new` keyword) one or more times.
+Una clase en un programa es una definición de un "tipo" de estructura de datos personalizada que incluye tanto datos como comportamientos que operan en esos datos. Las clases definen cómo funciona tal estructura de datos, pero las clases en sí no son valores concretos. Para obtener un valor concreto que se pueda usar en el programa, una clase debe ser *instanciada* (con la palabra clave `new`) una o más veces.
 
-Consider:
+Considera:
 
 ```js
 class Page {
@@ -563,19 +564,19 @@ mathNotes.print();
 // ..
 ```
 
-In the `Page` class, the data is a string of text stored in a `this.text` member property. The behavior is `print()`, a method that dumps the text to the console.
+En la clase `Page`, los datos son una cadena de texto almacenada en una propiedad miembro `this.text`. El comportamiento es `print()`, un método que muestra el texto en la consola.
 
-For the `Notebook` class, the data is an array of `Page` instances. The behavior is `addPage(..)`, a method that instantiates new `Page` pages and adds them to the list, as well as `print()` (which prints out all the pages in the notebook).
+Para la clase `Notebook`, los datos son una matriz de instancias de `Page`. El comportamiento es `addPage(..)`, un método que instancia nuevas páginas `Page` y las agrega a la lista, así como `print()` (que imprime todas las páginas en el cuaderno).
 
-The statement `mathNotes = new Notebook()` creates an instance of the `Notebook` class, and `page = new Page(text)` is where instances of the `Page` class are created.
+La declaración `mathNotes = new Notebook()` crea una instancia de la clase `Notebook`, y `page = new Page(text)` es donde se crean instancias de la clase `Page`.
 
-Behavior (methods) can only be called on instances (not the classes themselves), such as `mathNotes.addPage(..)` and `page.print()`.
+Los comportamientos (métodos) solo se pueden llamar en instancias (no en las propias clases), como `mathNotes.addPage(..)` y `page.print()`.
 
-The `class` mechanism allows packaging data (`text` and `pages`) to be organized together with their behaviors (e.g., `addPage(..)` and `print()`). The same program could have been built without any `class` definitions, but it would likely have been much less organized, harder to read and reason about, and more susceptible to bugs and subpar maintenance.
+El mecanismo de `class` permite organizar datos (`text` y `pages`) junto con sus comportamientos (por ejemplo, `addPage(..)` e `print()`). El mismo programa podría haberse construido sin ninguna definición de `class`, pero probablemente habría sido mucho menos organizado, más difícil de leer y entender, y más propenso a errores y un mantenimiento deficiente.
 
-#### Class Inheritance
+#### Herencia de clase
 
-Another aspect inherent to traditional "class-oriented" design, though a bit less commonly used in JS, is "inheritance" (and "polymorphism"). Consider:
+Otro aspecto inherente al diseño tradicional "orientado a clases", aunque se utiliza un poco menos comúnmente en JS, es la "herencia" (y "polimorfismo"). Considera:
 
 ```js
 class Publication {
@@ -595,9 +596,9 @@ class Publication {
 }
 ```
 
-This `Publication` class defines a set of common behavior that any publication might need.
+Esta clase `Publication` define un conjunto de comportamientos comunes que cualquier publicación podría necesitar.
 
-Now let's consider more specific types of publication, like `Book` and `BlogPost`:
+Ahora consideremos tipos más específicos de publicaciones, como `Book` y `BlogPost`:
 
 ```js
 class Book extends Publication {
@@ -633,9 +634,9 @@ class BlogPost extends Publication {
 }
 ```
 
-Both `Book` and `BlogPost` use the `extends` clause to *extend* the general definition of `Publication` to include additional behavior. The `super(..)` call in each constructor delegates to the parent `Publication` class's constructor for its initialization work, and then they do more specific things according to their respective publication type (aka, "sub-class" or "child class").
+Ambos, `Book` y `BlogPost`, utilizan la cláusula `extends` para *extender* la definición general de `Publication` e incluir comportamientos adicionales. La llamada `super(..)` en cada constructor delega al constructor de la clase padre `Publication` para su trabajo de inicialización, y luego realizan cosas más específicas según su tipo de publicación respectivo (también conocido como "subclase" o "clase hija").
 
-Now consider using these child classes:
+Ahora considera el uso de estas clases hijas:
 
 ```js
 var YDKJS = new Book({
@@ -667,27 +668,27 @@ forAgainstLet.print();
 // https://davidwalsh.name/for-and-against-let
 ```
 
-Notice that both child class instances have a `print()` method, which was an override of the *inherited* `print()` method from the parent `Publication` class. Each of those overridden child class `print()` methods call `super.print()` to invoke the inherited version of the `print()` method.
+Es importante destacar que ambas instancias de la clase hija tienen un método `print()`, que es una anulación (override) del método `print()` *heredado* de la clase principal `Publication`. Cada uno de esos métodos `print()` anulados en las clases hijas llama a `super.print()` para invocar la versión heredada del método `print()`.
 
-The fact that both the inherited and overridden methods can have the same name and co-exist is called *polymorphism*.
+El hecho de que tanto los métodos heredados como los anulados puedan tener el mismo nombre y coexistir se llama *polimorfismo*.
 
-Inheritance is a powerful tool for organizing data/behavior in separate logical units (classes), but allowing the child class to cooperate with the parent by accessing/using its behavior and data.
+La herencia es una herramienta poderosa para organizar datos y comportamientos en unidades lógicas separadas (clases), permitiendo que la clase hija coopere con la clase padre accediendo y utilizando su comportamiento y datos.
 
-### Modules
+### Modulos
 
-The module pattern has essentially the same goal as the class pattern, which is to group data and behavior together into logical units. Also like classes, modules can "include" or "access" the data and behaviors of other modules, for cooperation's sake.
+El patrón de módulo tiene esencialmente el mismo objetivo que el patrón de clase, que es agrupar datos y comportamientos en unidades lógicas. Al igual que las clases, los módulos pueden "incluir" o "acceder" a los datos y comportamientos de otros módulos, por cooperación.
 
-But modules have some important differences from classes. Most notably, the syntax is entirely different.
+Pero los módulos tienen algunas diferencias importantes con respecto a las clases. Sobre todo, la sintaxis es completamente diferente.
 
-#### Classic Modules
+#### Módulos clásicos
 
-ES6 added a module syntax form to native JS syntax, which we'll look at in a moment. But from the early days of JS, modules was an important and common pattern that was leveraged in countless JS programs, even without a dedicated syntax.
+ES6 agregó una forma de sintaxis de módulo a la sintaxis nativa de JS, que veremos en un momento. Pero desde los primeros días de JS, el uso de módulos fue un patrón importante y común que se aprovechó en innumerables programas de JS, incluso sin una sintaxis dedicada.
 
-The key hallmarks of a *classic module* are an outer function (that runs at least once), which returns an "instance" of the module with one or more functions exposed that can operate on the module instance's internal (hidden) data.
+Las características clave de un *módulo clásico* son una función externa (que se ejecuta al menos una vez), que devuelve una "instancia" del módulo con una o más funciones expuestas que pueden operar sobre los datos internos (ocultos) del módulo.
 
-Because a module of this form is *just a function*, and calling it produces an "instance" of the module, another description for these functions is "module factories".
+Dado que un módulo de esta forma es *simplemente una función*, y llamarla produce una "instancia" del módulo, otra descripción para estas funciones es "fábricas de módulos".
 
-Consider the classic module form of the earlier `Publication`, `Book`, and `BlogPost` classes:
+Considera la forma de módulo clásico de las anteriores clases `Publication`, `Book`, y `BlogPost`:
 
 ```js
 function Publication(title,author,pubDate) {
@@ -738,15 +739,15 @@ function BlogPost(title,author,pubDate,URL) {
 }
 ```
 
-Comparing these forms to the `class` forms, there are more similarities than differences.
+Al comparar estas formas con las formas `class`, hay más similitudes que diferencias.
 
-The `class` form stores methods and data on an object instance, which must be accessed with the `this.` prefix. With modules, the methods and data are accessed as identifier variables in scope, without any `this.` prefix.
+La forma `class` almacena métodos y datos en una instancia de objeto, que debe ser accedida con el prefijo `this`.. Con los módulos, los métodos y datos se acceden como variables de identificador en el ámbito, sin ningún prefijo `this`.
 
-With `class`, the "API" of an instance is implicit in the class definition—also, all data and methods are public. With the module factory function, you explicitly create and return an object with any publicly exposed methods, and any data or other unreferenced methods remain private inside the factory function.
+Con `class`, la "API" de una instancia es implícita en la definición de la `clase`; además, todos los datos y métodos son públicos. Con la función de fábrica del módulo, creas explícitamente y devuelves un objeto con cualquier método expuesto públicamente, y cualquier dato u otros métodos no referenciados permanecen privados dentro de la función de fábrica.
 
-There are other variations to this factory function form that are quite common across JS, even in 2020; you may run across these forms in different JS programs: AMD (Asynchronous Module Definition), UMD (Universal Module Definition), and CommonJS (classic Node.js-style modules). The variations are minor (not quite compatible). However, all of these forms rely on the same basic principles.
+Hay otras variaciones de esta forma de función de fábrica que son bastante comunes en JS, incluso en 2020; puedes encontrarte con estas formas en diferentes programas de JS: AMD (Asynchronous Module Definition), UMD (Universal Module Definition) y CommonJS (módulos clásicos de Node.js). Las variaciones son menores (no son completamente compatibles). Sin embargo, todas estas formas se basan en los mismos principios básicos.
 
-Consider also the usage (aka, "instantiation") of these module factory functions:
+Considera también el uso (también conocido como "instanciación") de estas funciones de fábrica de módulos:
 
 ```js
 var YDKJS = Book({
@@ -778,23 +779,23 @@ forAgainstLet.print();
 // https://davidwalsh.name/for-and-against-let
 ```
 
-The only observable difference here is the lack of using `new`, calling the module factories as normal functions.
+La única diferencia observable aquí es la falta de uso de `new`, llamando a las funciones de fábrica de módulos como funciones normales.
 
 #### ES Modules
 
-ES modules (ESM), introduced to the JS language in ES6, are meant to serve much the same spirit and purpose as the existing *classic modules* just described, especially taking into account important variations and use cases from AMD, UMD, and CommonJS.
+ES modules (ESM), introducidos en el lenguaje JS en ES6, están destinados a servir en gran medida al mismo espíritu y propósito que los *módulos clásicos* existentes que acabo de describir, especialmente teniendo en cuenta variaciones importantes y casos de uso de AMD, UMD y CommonJS.
 
-The implementation approach does, however, differ significantly.
+Sin embargo, el enfoque de implementación difiere significativamente.
 
-First, there's no wrapping function to *define* a module. The wrapping context is a file. ESMs are always file-based; one file, one module.
+En primer lugar, no hay una función de envoltura para *definir* un módulo. El contexto de envoltura es un archivo. Los ESM siempre se basan en archivos; un archivo, un módulo.
 
-Second, you don't interact with a module's "API" explicitly, but rather use the `export` keyword to add a variable or method to its public API definition. If something is defined in a module but not `export`ed, then it stays hidden (just as with *classic modules*).
+En segundo lugar, no interactúas con la "API" de un módulo explícitamente, sino que utilizas la palabra clave `export` para agregar una variable o método a su definición de API pública. Si algo está definido en un módulo pero no se `export`a, permanece oculto (igual que con los *módulos clásicos*).
 
-Third, and maybe most noticeably different from previously discussed patterns, you don't "instantiate" an ES module, you just `import` it to use its single instance. ESMs are, in effect, "singletons," in that there's only one instance ever created, at first `import` in your program, and all other `import`s just receive a reference to that same single instance. If your module needs to support multiple instantiations, you have to provide a *classic module-style* factory function on your ESM definition for that purpose.
+En tercer lugar, y quizás lo más notablemente diferente de los patrones discutidos anteriormente, no "instancias" un módulo ES, simplemente lo `import`as para usar su instancia única. Los ESM son, de hecho, "singleton", en el sentido de que solo se crea una instancia en el primer `import` en tu programa, y todos los demás `import`s simplemente reciben una referencia a esa misma instancia única. Si tu módulo necesita admitir múltiples instanciaciones, debes proporcionar una función de fábrica de *estilo de módulo clásico* en tu definición de ESM con ese propósito.
 
-In our running example, we do assume multiple-instantiation, so these following snippets will mix both ESM and *classic modules*.
+En nuestro ejemplo en ejecución, asumimos la posibilidad de múltiples instanciaciones, por lo que estos fragmentos siguientes mezclarán tanto ESM como *módulos clásicos*.
 
-Consider the file `publication.js`:
+Considera el archivo `publication.js`:
 
 ```js
 function printDetails(title,author,pubDate) {
@@ -816,7 +817,7 @@ export function create(title,author,pubDate) {
 }
 ```
 
-To import and use this module, from another ES module like `blogpost.js`:
+Para importar y usar este módulo, desde otro módulo de ES como `blogpost.js`
 
 ```js
 import { create as createPub } from "publication.js";
@@ -839,7 +840,7 @@ export function create(title,author,pubDate,URL) {
 }
 ```
 
-And finally, to use this module, we import into another ES module like `main.js`:
+Y finalmente, para usar este módulo, importamos a otro módulo de ES como `main.js`:
 
 ```js
 import { create as newBlogPost } from "blogpost.js";
@@ -858,18 +859,18 @@ forAgainstLet.print();
 // https://davidwalsh.name/for-and-against-let
 ```
 
-| NOTE: |
+| NOTA: |
 | :--- |
-| The `as newBlogPost` clause in the `import` statement is optional; if omitted, a top-level function just named `create(..)` would be imported. In this case, I'm renaming it for readability's sake; its more generic factory name of `create(..)` becomes more semantically descriptive of its purpose as `newBlogPost(..)`. |
+| La cláusula `as newBlogPost` en la declaración `import` es opcional; si se omite, se importaría una función de nivel superior simplemente llamada `create(..)`. En este caso, estoy cambiando su nombre por una cuestión de legibilidad; su nombre de fábrica más genérico, `create(..)`, se vuelve más descriptivo semánticamente como `newBlogPost(..)`. |
 
-As shown, ES modules can use *classic modules* internally if they need to support multiple-instantiation. Alternatively, we could have exposed a `class` from our module instead of a `create(..)` factory function, with generally the same outcome. However, since you're already using ESM at that point, I'd recommend sticking with *classic modules* instead of `class`.
+Como se muestra, los ES modules pueden utilizar *módulos clásicos* internamente si necesitan admitir múltiples instanciaciones. Alternativamente, podríamos haber expuesto una `class` desde nuestro módulo en lugar de una función de fábrica `create(..)`, con generalmente el mismo resultado. Sin embargo, dado que ya estás utilizando ESM en ese punto, recomendaría quedarse con *módulos clásicos* en lugar de `class`.
 
-If your module only needs a single instance, you can skip the extra layers of complexity: `export` its public methods directly.
+Si tu módulo solo necesita una única instancia, puedes omitir las capas adicionales de complejidad y `exportar` sus métodos públicos directamente.
 
-## The Rabbit Hole Deepens
+## La madriguera del conejo se profundiza
 
-As promised at the top of this chapter, we just glanced over a wide surface area of the main parts of the JS language. Your head may still be spinning, but that's entirely natural after such a firehose of information!
+Como se prometió al principio de este capítulo, acabamos de echar un vistazo superficial a una amplia área principal del lenguaje JavaScript. Es posible que tu cabeza aún esté dando vueltas, ¡pero eso es completamente natural después de recibir tanta información de golpe!
 
-Even with just this "brief" survey of JS, we covered or hinted at a ton of details you should carefully consider and ensure you are comfortable with. I'm serious when I suggest: re-read this chapter, maybe several times.
+Incluso con esta "breve" exploración de JavaScript, cubrimos o insinuamos una gran cantidad de detalles que deberías considerar cuidadosamente y asegurarte de que te sientas cómodo con ellos. Hablo en serio cuando sugiero: vuelve a leer este capítulo, quizás varias veces.
 
-In the next chapter, we're going to dig much deeper into some important aspects of how JS works at its core. But before you follow that rabbit hole deeper, make sure you've taken adequate time to fully digest what we've just covered here.
+En el próximo capítulo, profundizaremos mucho más en algunos aspectos importantes de cómo funciona JavaScript en su núcleo. Pero antes de seguir ese agujero de conejo más profundamente, asegúrate de haber tomado el tiempo adecuado para digerir completamente lo que acabamos de cubrir aquí.
